@@ -6,7 +6,7 @@
 4. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
 
 
-## Plusieurs-indicateurs-pour-un-ensemble-de-régions
+## Plusieurs indicateurs pour un ensemble de régions
 ![Plusieurs indicateurs pour un ensemble de régions](/Output/n-indic_n-reg/regions_1.png)
 ## Exemple 2
 ![Un indicateur pour toutes les régions](/Output/1-indic_all-reg/fig-rea.png)
