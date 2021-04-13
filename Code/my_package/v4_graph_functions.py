@@ -250,18 +250,20 @@ def fig_n_indic_n_reg(d, regions, regions_ordered, fig_id):
                                      'horizontalalignment': 'left'},
                      c = 'black', family = 'sans',
                     )
+    
+    dir_PNG = output_dir + 'Figures Suivi parallèle de 5 indicateurs sur l\'ensemble des régions/'
+    dir_PDF = dir_PNG + 'PDF/'
+    
+    if not os.path.exists(dir_PNG):
+        os.makedirs(dir_PNG)
+    if not os.path.exists(dir_PDF):
+        os.makedirs(dir_PDF)
 
-    dir_PDF = output_dir + 'PDF/'
-    dir_PNG = output_dir
     fname_PDF = dir_PDF + 'regions-{}.pdf'.format(fig_id)
     fname_PNG = dir_PNG + 'regions-{}.png'.format(fig_id)
 
-    try:        
-        fig.savefig(fname_PDF, pad_inches = 0)
-    except:
-        os.mkdir(dir_PDF)
-        fig.savefig(fname_PDF, pad_inches = 0)
-    
+          
+    fig.savefig(fname_PDF, pad_inches = 0)  
     fig.savefig(fname_PNG, pad_inches = 0)
 
 def fig_1_indic_all_reg(d, column_to_plot, regions_ordered):
@@ -324,18 +326,22 @@ def fig_1_indic_all_reg(d, column_to_plot, regions_ordered):
                 c = 'black', family = 'sans',
                 )
 
-    dir_PDF = output_dir + 'PDF/'
-    dir_PNG = output_dir
+##
+    dir_PNG = output_dir + 'Figures Synthèse de chaque indicateur pour l\'ensemble des régions/'
+    dir_PDF = dir_PNG + 'PDF/'
+    
+    if not os.path.exists(dir_PNG):
+        os.makedirs(dir_PNG)
+    if not os.path.exists(dir_PDF):
+        os.makedirs(dir_PDF)
+
+    fname_PNG = dir_PNG + 'fig{}.png'.format(
+                            graph_options[column_to_plot]['fname_extension'])
     fname_PDF = dir_PDF + 'fig{}.pdf'.format(
                             graph_options[column_to_plot]['fname_extension'])
-    try:        
-        fig.savefig(fname_PDF, pad_inches = 0)
-    except:
-        os.mkdir(dir_PDF)
-        fig.savefig(fname_PDF, pad_inches = 0)
-    
-    fname_PNG = dir_PNG + 'fig{}.png'.format(graph_options[column_to_plot]['fname_extension'])
-    fig.savefig(fname_PNG)
+
+    fig.savefig(fname_PNG, pad_inches = 0)
+    fig.savefig(fname_PDF, pad_inches = 0)  
 
 def fig_1_indic_1_region(d, region, column_to_plot):
     
@@ -402,28 +408,24 @@ def fig_1_indic_1_region(d, region, column_to_plot):
                          c = 'royalblue', family = 'sans'
                         )
     
-    
-    dir_PNG = '{output_dir}regions{indicateur}/'.format(
-        output_dir = output_dir, indicateur = graph_options[column_to_plot]['fname_extension'])
+##
+    dir_PNG = '{output_dir}Figures Synthèse pour chaque région de 5 indicateurs/{region}/'.format(
+        output_dir = output_dir, 
+        region = region)
     dir_PDF = dir_PNG + 'PDF/'
+    
+    if not os.path.exists(dir_PNG):
+        os.makedirs(dir_PNG)
+    if not os.path.exists(dir_PDF):
+        os.makedirs(dir_PDF)
+
     fname = 'fig-{region}{indicateur}'.format(region = region,
                             indicateur = graph_options[column_to_plot]['fname_extension'])
     fname_PNG = dir_PNG + fname + '.png'
     fname_PDF = dir_PDF + fname + '.pdf'
 
-    try:        
-        fig.savefig(fname_PNG, pad_inches = 0)
-    except:
-        os.mkdir(dir_PNG)
-        fig.savefig(fname_PNG, pad_inches = 0)
-        
-    try: 
-        fig.savefig(fname_PDF, pad_inches = 0)  
-    except:
-        os.mkdir(dir_PDF)
-        fig.savefig(fname_PDF, pad_inches = 0)   
-
-
+    fig.savefig(fname_PNG, pad_inches = 0)
+    fig.savefig(fname_PDF, pad_inches = 0)  
 
 # def produce_fig_dep(d, deps):
 #     ncol = max(1, min(4, len(deps)//2))

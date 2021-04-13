@@ -452,7 +452,7 @@ reg_2lignes = {'Auvergne-Rhône-Alpes': 'Auvergne-\nRhône-Alpes',
  'Normandie': 'Normandie',
  'Nouvelle-Aquitaine': 'Nouvelle-\nAquitaine',
  'Occitanie': 'Occitanie',
- 'Outre-mer': 'Outre-mer',
+ 'Outre-mer (DROM)': 'Outre-mer\n(DROM)',
  'Pays de la Loire': 'Pays\nde la Loire',
  "Provence-Alpes-Côte d'Azur": "Provence-\nAlpes-Côte d'Azur",
  'Île-de-France': 'Île-de-France'}
