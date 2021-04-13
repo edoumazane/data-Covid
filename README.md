@@ -4,15 +4,15 @@ Objectif - présenter les données épidémiologiques #Covid19France afin de :
 * comparer les **régions** entre elles
 * couvrir toute la période 01/03/2020 - 01/06/2021
 >:clock8: Les figures sont mises à jour toutes les 24 à 48 h 
->:hatching_chick: C'est mon tout premier projet #dataviz sur GitHub 
->:tada: Toute participation est la bienvenue 
+>>:hatching_chick: C'est mon tout premier projet #dataviz sur GitHub 
+>>>:tada: Toute participation est la bienvenue 
 1. [Suivre en parallèle 5 indicateurs](##example2)
 2. [Quelques infos importantes avant de continuer...](#infos)
 3. [Comparer les régions pour un indicateur](#example1)
 4. [Suivre un indicateur dans une région et ses départements](###example3)
 5. [... et enfin le code source](#example4) 
 ### 1. Suivre en parallèle 5 indicateurs<a name="example2"></a>
-* ![accéder aux 3 figures (+1)](/Output/Figures%20Suivi%20parall%C3%A8le%20de%205%20indicateurs%20sur%20l'ensemble%20des%20r%C3%A9gions)
+* ![accéder aux 4 figures](/Output/Figures%20Suivi%20parall%C3%A8le%20de%205%20indicateurs%20sur%20l'ensemble%20des%20r%C3%A9gions)
 - exemple pour les 4 régions les plus touchées :
 ![Figure 1 / 3](Output/Figures%20Suivi%20parall%C3%A8le%20de%205%20indicateurs%20sur%20l'ensemble%20des%20r%C3%A9gions/regions-1%20sur%203.png)
 ### 2. Quelques infos importantes avant de continuer...<a name="info"></a>
@@ -35,22 +35,22 @@ Objectif - présenter les données épidémiologiques #Covid19France afin de :
 ### 3. Comparer les régions pour un indicateur <a name="example1"></a>
 * ![accéder aux 8 figures](/Output/Figures%20Synth%C3%A8se%20de%20chaque%20indicateur%20pour%20l'ensemble%20des%20r%C3%A9gions)
 * 3 exemples :
-- taux d'**hospitalisation** :
+- **hospitalisation** :
 ![Figure hosp](Output/Figures%20Synth%C3%A8se%20de%20chaque%20indicateur%20pour%20l'ensemble%20des%20r%C3%A9gions/fig-hosp.png)
-- taux de **réanimation** :
+- **réanimation** :
 ![Figure réa](Output/Figures%20Synth%C3%A8se%20de%20chaque%20indicateur%20pour%20l'ensemble%20des%20r%C3%A9gions/fig-rea.png)
-- taux de **décès** :
-![Figure décès](Output/Figures%20Synth%C3%A8se%20de%20chaque%20indicateur%20pour%20l'ensemble%20des%20r%C3%A9gions/fig-hosp.png)
+- **décès** :
+![Figure décès](Output/Figures%20Synth%C3%A8se%20de%20chaque%20indicateur%20pour%20l'ensemble%20des%20r%C3%A9gions/fig-deces.png)
 ### 3. Suivre un indicateur dans une région et ses départements<a name="example3"></a>
 * Les données hospitalières à l'échelon départemental ne sont pas disponibles par classe d'âge.
 * Pour cette raison, seuls les 5 indicateurs qui concernent les tests virologiques et la vaccination sont présentés.
-* ![accéder aux (14 x 5) figures](/Output/Figures%20Synth%C3%A8se%20pour%20chaque%20r%C3%A9gion%20de%205%20indicateurs) 
+* ![accéder aux 14 * 5 = 70 figures](/Output/Figures%20Synth%C3%A8se%20pour%20chaque%20r%C3%A9gion%20de%205%20indicateurs) 
 * 3 exemples :
-- l'**incidence** en **Île-de-France** :
+- **incidence** en **Île-de-France** :
 ![Incidence Île-de-France](/Output/Figures%20Synth%C3%A8se%20pour%20chaque%20r%C3%A9gion%20de%205%20indicateurs/%C3%8Ele-de-France/fig-%C3%8Ele-de-France-incidence.png)
-- l'**incidence** en **Bretagne** :
+- **incidence** en **Bretagne** :
 ![Incidence Bretagne](/Output/Figures%20Synth%C3%A8se%20pour%20chaque%20r%C3%A9gion%20de%205%20indicateurs/Bretagne/fig-Bretagne-incidence.png)
-* la **vaccination** dans les départements et régions d'**Outre-mer** :
+* **vaccination** dans les départements et régions d'**Outre-mer** :
 ![Dose 2 Outre-Mer](/Output/Figures%20Synth%C3%A8se%20pour%20chaque%20r%C3%A9gion%20de%205%20indicateurs/Outre-mer%20(DROM)/fig-Outre-mer%20(DROM)-dose2.png)
 
 ### 5. ... et enfin le code source <a name="example4"></a>
