@@ -350,11 +350,25 @@ def fig_1_indic_1_region(d, region, column_to_plot):
     nrows = int(np.ceil((ndeps + 2) / 4))
     ncols = 4 
     
+    last_week = ((d.jour > np.datetime64(dt.datetime.fromisoformat(DATE[0]) - dt.timedelta(weeks = 1))) 
+             & (d.jour <= np.datetime64(dt.datetime.fromisoformat(DATE[0]))))
+    deps = (d[(last_week) 
+                    & (d.entity.isin(deps))
+                    & (d.three_class == '60+')]
+                   .groupby('entity')[column_to_plot]
+                   .mean()
+                   .sort_values(ascending = False)
+                   .index
+                   .tolist())
+
+
     fig = plt.figure(constrained_layout=False, figsize = (16, 2 * nrows + 4))
-    gs0 = fig.add_gridspec(2, 1, hspace = 0.15, height_ratios=[1.5*nrows, 3])
+    gs0 = fig.add_gridspec(2, 1, hspace = 0.2, height_ratios=[1.5*nrows, 3])
     
     gs00 = gs0[0,0].subgridspec(ncols=ncols, nrows=nrows, wspace = 0.1, hspace = 0.05)
     
+
+
     for i,j in enumerate(deps_outlay_fig_synthese[ndeps]):
         #i number of graph, j number of axe
         ax = fig.add_subplot(gs00[j])
@@ -370,22 +384,11 @@ def fig_1_indic_1_region(d, region, column_to_plot):
                                         'horizontalalignment': 'left'},
                         c = 'royalblue', family = 'sans'
                     )
-    
-    gs10 = gs0[1,0].subgridspec(1, 2, wspace=0.1, hspace=0)
-    ax = fig.add_subplot(gs10[0,0])
-    plot_three_curves(ax, d, region, column_to_plot, **graph_options[column_to_plot])
-    format_graph(ax, x_axis = 'complete', y_labels = 'to_the_left', **graph_options[column_to_plot])
-    ax.set_title(region, 
-                         x = 0.05, y = 0.95, 
-                         fontdict = {'fontsize': 24,
-                                         'fontweight' : 'semibold',
-                                         'verticalalignment': 'bottom',
-                                         'horizontalalignment': 'left'},
-                         c = 'royalblue', family = 'sans'
-                        )
-
-    (ax.legend(bbox_to_anchor=[0.8, 1.4], 
-                  loc='center',
+    ax_leg = fig.add_subplot(gs00[3])
+    ax_leg.set_axis_off() 
+    (ax_leg.legend(*ax.get_legend_handles_labels(),
+                bbox_to_anchor=[0, 0], 
+                  loc='lower left',
                   labelspacing=0.5,       
                   handlelength=2, 
                   handletextpad=0.5,
@@ -395,13 +398,27 @@ def fig_1_indic_1_region(d, region, column_to_plot):
                   title_fontsize = 14,
                   )
             )
+    
+    
+    gs10 = gs0[1,0].subgridspec(1, 2, wspace=0.1, hspace=0)
+    ax = fig.add_subplot(gs10[0,0])
+    plot_three_curves(ax, d, region, column_to_plot, **graph_options[column_to_plot])
+    format_graph(ax, x_axis = 'complete', y_labels = 'to_the_left', **graph_options[column_to_plot])
+    ax.set_title(region, 
+                         x = 0.05, y = 0.9, 
+                         fontdict = {'fontsize': 26,
+                                         'fontweight' : 'semibold',
+                                         'verticalalignment': 'bottom',
+                                         'horizontalalignment': 'left'},
+                         c = 'royalblue', family = 'sans'
+                        )
 
     ax = fig.add_subplot(gs10[0,1])
     plot_three_curves(ax, d, 'France', column_to_plot, **graph_options[column_to_plot])
     format_graph(ax, x_axis = 'complete', y_labels = 'to_the_right', **graph_options[column_to_plot])
     ax.set_title('France', 
                          x = 0.05, y = 0.9, 
-                         fontdict = {'fontsize': 20,
+                         fontdict = {'fontsize': 24,
                                          'fontweight' : 'semibold',
                                          'verticalalignment': 'bottom',
                                          'horizontalalignment': 'left'},
@@ -425,7 +442,9 @@ def fig_1_indic_1_region(d, region, column_to_plot):
     fname_PDF = dir_PDF + fname + '.pdf'
 
     fig.savefig(fname_PNG, pad_inches = 0)
-    fig.savefig(fname_PDF, pad_inches = 0)  
+    fig.savefig(fname_PDF, pad_inches = 0) 
+
+    # plt.clf() 
 
 # def produce_fig_dep(d, deps):
 #     ncol = max(1, min(4, len(deps)//2))
