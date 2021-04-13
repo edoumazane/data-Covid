@@ -3,7 +3,7 @@ Le but de ce projet est de présenter les données épidémiologiques de la Covi
 * comparer l'impact sur trois classes d'âge : 0-29, 30-59 et + de 60 ans
 * comparer les régions entre elles
 * sur l'ensemble de la période mars 2020 - juin 2021
-Les figures sont mises à jour quotidiennement.
+>Les figures sont mises à jour quotidiennement.
 1. [Suivi des huit indicateurs pour toutes les régions](#example1)
 2. [Suivi en parallèle de cinq indicateurs pour différentes régions](##example2)
 3. [Suivi de chaque indicateur dans chaque région et ses départements](###example3)
