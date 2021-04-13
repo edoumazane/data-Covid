@@ -1,0 +1,58 @@
+graph_options = {
+    'incidence hebdo': {
+        'ymin': -40,
+        'ymax': 1190,
+        'main_color': 'darkturquoise',
+        'title': 'Cas positifs par semaine,\npour 100 000 habitants',
+        'fname_extension': '-incidence',
+        },
+    'taux de tests hebdo': {
+        'ymin': -400,
+        'ymax': 11900,
+        'main_color': 'gray',
+        'title': 'Tests pratiqués par semaine,\npour 100 000 habitants',
+        'fname_extension': '-tests',
+        },
+    'taux de positifs hebdo': {
+        'ymin': -1,
+        'ymax': 29,
+        'main_color': 'olivedrab',
+        'title': 'Tests positifs,\npour 100 tests\n(moyenne hebdomadaire)',
+        'fname_extension': '-positivite',
+        },
+    'taux hosp': {
+        'ymin': -15,
+        'ymax': 379,
+        'main_color': 'mediumseagreen',
+        'title': 'Patients hospitalisés,\npour 100 000 habitants',
+        'fname_extension': '-hosp',
+        },
+    'taux rea': {
+        'ymin': -2,
+        'ymax': 59,
+        'main_color': 'darksalmon',
+        'title': 'Patients en réanimation,\npour 100 000 habitants',
+        'fname_extension': '-rea',
+        },
+    'taux décès': {
+        'ymin': -2,
+        'ymax': 59,
+        'main_color': 'orchid',
+        'title': "Décès à l'hôpital par semaine,\npour 100 000 habitants",
+        'fname_extension': '-deces',
+        },
+    'taux dose 1': {
+        'ymin': -2,
+        'ymax': 59,
+        'main_color': 'silver',
+        'title': 'Personnes vaccinées,\npour 100 habitants\n(première injection)',
+        'fname_extension': '-dose1',
+        },
+    'taux dose 2': {
+        'ymin': -2,
+        'ymax': 59,
+        'main_color': 'gold',
+        'title': 'Personnes vaccinées,\npour 100 habitants\n(deux injections)',
+        'fname_extension': '-dose2',
+        },
+    }
