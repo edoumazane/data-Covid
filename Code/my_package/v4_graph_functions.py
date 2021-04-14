@@ -212,7 +212,7 @@ def figure_line(row, nrow, axs, d, column_to_plot, regions):
                                      'horizontalalignment': 'center'},
                      c = 'royalblue', family = 'sans')
 
-def fig_n_indic_n_reg(d, regions, regions_ordered, fig_id):
+def fig_type1(d, regions, regions_ordered, fig_id):
 
     ncol = len(regions) + 2
     fig, axs = plt.subplots(5, ncol, figsize = (4 * ncol, 16))
@@ -251,7 +251,7 @@ def fig_n_indic_n_reg(d, regions, regions_ordered, fig_id):
                      c = 'black', family = 'sans',
                     )
     
-    dir_PNG = output_dir + 'Figures Suivi parallèle de 5 indicateurs sur l\'ensemble des régions/'
+    dir_PNG = output_dir + 'Type1/'
     dir_PDF = dir_PNG + 'PDF/'
     
     if not os.path.exists(dir_PNG):
@@ -266,7 +266,7 @@ def fig_n_indic_n_reg(d, regions, regions_ordered, fig_id):
     fig.savefig(fname_PDF, pad_inches = 0)  
     fig.savefig(fname_PNG, pad_inches = 0)
 
-def fig_1_indic_all_reg(d, column_to_plot, regions_ordered):
+def fig_type2(d, column_to_plot, regions_ordered):
 
     nrow, ncol = 4, 4
     fig, axs = plt.subplots(nrow, ncol, figsize = (4*ncol, 13))
@@ -316,7 +316,6 @@ def fig_1_indic_all_reg(d, column_to_plot, regions_ordered):
                         top=0.9, 
                         wspace=0.1, 
                         hspace=0.2)
-
     fig.suptitle('@E_Dmz - Données Santé Publique France ({})'.format(DATE[1]), 
                 x = 0.05, y = 0.12, ha = 'left',
                 fontdict = {'fontsize': 12,
@@ -326,8 +325,7 @@ def fig_1_indic_all_reg(d, column_to_plot, regions_ordered):
                 c = 'black', family = 'sans',
                 )
 
-##
-    dir_PNG = output_dir + 'Figures Synthèse de chaque indicateur pour l\'ensemble des régions/'
+    dir_PNG = output_dir + 'Type2/'
     dir_PDF = dir_PNG + 'PDF/'
     
     if not os.path.exists(dir_PNG):
@@ -343,7 +341,7 @@ def fig_1_indic_all_reg(d, column_to_plot, regions_ordered):
     fig.savefig(fname_PNG, pad_inches = 0)
     fig.savefig(fname_PDF, pad_inches = 0)  
 
-def fig_1_indic_1_region(d, region, column_to_plot):
+def fig_type3(d, region, column_to_plot):
     
     deps = reg2dep[region]
     ndeps = len(deps)
@@ -426,7 +424,7 @@ def fig_1_indic_1_region(d, region, column_to_plot):
                         )
     
 ##
-    dir_PNG = '{output_dir}Figures Synthèse pour chaque région de 5 indicateurs/{region}/'.format(
+    dir_PNG = '{output_dir}Type3/{region}/'.format(
         output_dir = output_dir, 
         region = region)
     dir_PDF = dir_PNG + 'PDF/'

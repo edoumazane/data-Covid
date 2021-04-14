@@ -2,6 +2,7 @@ import time
 import datetime as dt
 import os
 import glob
+import shutil
 
 def date(days = 0):
     """
@@ -76,7 +77,13 @@ try:
 except: pass
 
 ## Setup Output directory
-output_dir = '../Output/{version}-{date_choice}-{today}/'.format(
+output_dir = '../Output/Archives_v4/{version}-{date_choice}-{today}/'.format(
             version = VERSION, date_choice = DATE_CHOICE[0], today = TODAY[0])
 try: os.mkdir(output_dir)
 except: pass
+
+def copy_to_main_output_dir(output_dir = output_dir):
+    for root, dirs, files in os.walk(output_dir[:-1]):  # replace the . with your starting directory
+        for file in files:
+            path_file = os.path.join(root,file)
+            shutil.copy2(path_file,'../Ouput/')
