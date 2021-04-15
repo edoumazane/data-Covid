@@ -31,7 +31,7 @@ def retrieve_data(dataset):
         print('There is no file {}'.format(fname_format))
         return 
 
-    path_temp = '../Temp/{version}/{prefix}'.format(
+    path_temp = './Temp/{version}/{prefix}'.format(
                 version = VERSION, prefix = fname[8:-4])
     
     return fname, path_temp
@@ -44,7 +44,7 @@ def retrieve_temp(dataset, extension):
     version: string, version of code file
     returns: path to temp file
     """
-    fname_format = '../Temp/{version}/{dataset}-{date_choice}-??h??-{extension}.csv'.format(
+    fname_format = './Temp/{version}/{dataset}-{date_choice}-??h??-{extension}.csv'.format(
                 version = VERSION, dataset = dataset, date_choice = DATE_CHOICE[0], extension = extension)
     try: 
         fname = glob.glob(fname_format)[0]
