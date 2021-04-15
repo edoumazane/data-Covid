@@ -71,7 +71,7 @@ DATE_CHOICE = date(days)
 print('Ok, will retrieve data from {}'.format(DATE_CHOICE[1]))
 
 ## Setup Temp directory
-temp_dir = '../Temp/{}'.format(VERSION)
+temp_dir = './Temp/{}'.format(VERSION)
 try: 
     os.mkdir(temp_dir)
 except: pass
