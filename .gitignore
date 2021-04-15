@@ -1,5 +1,5 @@
 /Output/*
 !/Output/Type*
-Code/*
-!Code/*
-!Code/my_package
+/Code/*
+!/Code/v4*
+!/Code/my_package
