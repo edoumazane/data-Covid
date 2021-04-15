@@ -8,7 +8,7 @@ graph_options = {
         },
     'taux de tests hebdo': {
         'ymin': -400,
-        'ymax': 11900,
+        'ymax': 9900,
         'main_color': 'gray',
         'title': 'Tests pratiqués par semaine,\npour 100 000 habitants',
         'fname_extension': '-tests',
@@ -36,7 +36,7 @@ graph_options = {
         },
     'taux décès': {
         'ymin': -2,
-        'ymax': 59,
+        'ymax': 54,
         'main_color': 'orchid',
         'title': "Décès à l'hôpital par semaine,\npour 100 000 habitants",
         'fname_extension': '-deces',

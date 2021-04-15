@@ -34,7 +34,7 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", **kwargs):
     y_labels : 'without', 'to_the_left', 'to_the_right
     **kwargs: graph_options
     """
-
+    ax.patch.set_alpha(0)
     ymin = kwargs['ymin']
     ymax = kwargs['ymax']
 
@@ -50,15 +50,15 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", **kwargs):
     # y axis conditional
 
     if y_labels == "without":
-        ax.tick_params(axis='y', left = False, labelsize = 8) 
+        ax.tick_params(axis='y', left = False, labelsize = 9) 
         ax.set_yticklabels([])
 
     if y_labels == "to_the_left":
-        ax.tick_params(axis='y', left = False, labelsize = 8)
+        ax.tick_params(axis='y', left = False, labelsize = 9)
 
     if y_labels == "to_the_right":
-        ax.tick_params(axis='y', left = False, 
-            labelright = True, labelleft = False, labelsize = 8)
+        ax.tick_params(axis='y', left = False,
+            labelright = True, labelleft = False, labelsize = 9)
         
     # x axis and vertical lines default
     ax.set_xlim(dt.datetime(2020, 3, 1), 
@@ -88,7 +88,7 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", **kwargs):
 
     if x_axis == 'regular':
         ax.tick_params(axis='x', bottom = True,
-                   labelsize = 10)
+                   labelsize = 9)
         locs = []
         for i in range(8):
             locs.append(dt.datetime(2020, 3 + 2*i, 1) if 2 * i <= 9
@@ -104,7 +104,7 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", **kwargs):
 
     if x_axis == 'complete':
         ax.tick_params(axis='x', bottom = True,
-                labelsize = 10)
+                labelsize = 9)
         locs = []
         for i in range(16):
             locs.append(dt.datetime(2020, 3 + i , 1) if i <= 9 
@@ -126,10 +126,10 @@ def plot_three_curves(ax, d, entity, column_to_plot, **kwargs):
     ax.plot(dplot.jour, dplot[column_to_plot], c = "firebrick", linewidth = 1, label = '0-29 ans')
     
     dplot = d.loc[d.entity == entity].loc[d.three_class == '30-59']
-    ax.plot(dplot.jour, dplot[column_to_plot], c = "black", linewidth = 2, label = '30-59 ans')
+    ax.plot(dplot.jour, dplot[column_to_plot], c = "black", linewidth = 1.5, label = '30-59 ans')
 
     dplot = d.loc[d.entity == entity].loc[d.three_class == '60+']
-    ax.plot(dplot.jour, dplot[column_to_plot], c = main_color, linewidth = 4, label = '60 ans et +')
+    ax.plot(dplot.jour, dplot[column_to_plot], c = main_color, linewidth = 3, label = '60 ans et +')
 
 def simple_figure(d, entity, column_to_plot, autoscale = False):
     if autoscale:
@@ -164,15 +164,15 @@ def figure_line(row, nrow, axs, d, column_to_plot, regions):
             y_labels = ('to_the_left' if (col == 0) else 'to_the_right' if (col == ncol - 1) else 'without'), 
             **graph_options[column_to_plot])
     # Légende
-    (ax.legend(bbox_to_anchor=[1.6, .45], 
+    (ax.legend(bbox_to_anchor=[1.55, .45], 
               loc='center',
               labelspacing=0.5,       
               handlelength=2, 
               handletextpad=0.5,
               frameon=True,
-              fontsize = 14,
+              fontsize = 11,
               title = graph_options[column_to_plot]['title'],
-              title_fontsize = 14,
+              title_fontsize = 10,
               )
         )
     plt.setp(ax.get_legend().get_title(), multialignment='center')
@@ -181,7 +181,7 @@ def figure_line(row, nrow, axs, d, column_to_plot, regions):
     if (row == 0):
         ax.set_title('France', 
                      x = 0.5, y = 1.05, 
-                     fontdict = {'fontsize': 26,
+                     fontdict = {'fontsize': 24,
                                      'fontweight' : 'semibold',
                                      'verticalalignment': 'center',
                                      'horizontalalignment': 'center'},
@@ -206,7 +206,7 @@ def figure_line(row, nrow, axs, d, column_to_plot, regions):
         if row == 0:
             ax.set_title(reg_2lignes[region], 
                          x = 0.5, y = 1.05, 
-                         fontdict = {'fontsize': 22,
+                         fontdict = {'fontsize': 16,
                                      'fontweight' : 'semibold',
                                      'verticalalignment': 'center',
                                      'horizontalalignment': 'center'},
@@ -215,7 +215,7 @@ def figure_line(row, nrow, axs, d, column_to_plot, regions):
 def fig_type1(d, regions, regions_ordered, fig_id):
 
     ncol = len(regions) + 2
-    fig, axs = plt.subplots(5, ncol, figsize = (4 * ncol, 16))
+    fig, axs = plt.subplots(5, ncol, figsize = (2.5 * ncol, 10))
     axs = axs.ravel() 
     
     for i, column_to_plot in enumerate([
@@ -233,18 +233,16 @@ def fig_type1(d, regions, regions_ordered, fig_id):
                     regions = regions,
                     )
     
-    fig.subplots_adjust(left=0.05,
-                        right=0.95, 
-                        bottom=0.2, 
-                        top=0.9, 
-                        wspace=0.1, 
-                        hspace=0.15)
+    fig.subplots_adjust(left=0.035,
+                        right=0.965, 
+                        bottom=0.1, 
+                        top=0.95, 
+                        wspace=0.07, 
+                        hspace=0.05)
     
-    fig.suptitle('{fig_id}\n@E_Dmz - Données Santé Publique France ({date})\
-                \nLes régions sont classées selon le taux de patients en réanimation pendant la semaine précédente :\
-                \n{regs}'.format(fig_id = fig_id, date = DATE[1], regs = ' / '.join(regions_ordered),), 
-                 x = 0.05, y = 0.12, ha = 'left',                     
-                     fontdict = {'fontsize': 14,
+    fig.suptitle('{fig_id}\n@E_Dmz - Données Santé Publique France ({date})'.format(fig_id = fig_id, date = DATE[1]),
+                 x = 0.03, y = 0.045, ha = 'left',                     
+                     fontdict = {'fontsize': 8,
                                      'fontweight' : 'normal',
                                      'verticalalignment': 'center',
                                      'horizontalalignment': 'left'},
@@ -314,7 +312,7 @@ def fig_type2(d, column_to_plot, regions_ordered):
                         right=0.95, 
                         bottom=0.2, 
                         top=0.9, 
-                        wspace=0.1, 
+                        wspace=0.12, 
                         hspace=0.2)
     fig.suptitle('@E_Dmz - Données Santé Publique France ({})'.format(DATE[1]), 
                 x = 0.05, y = 0.12, ha = 'left',
