@@ -12,9 +12,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
-from my_package.v4_datepaths import TODAY, VERSION, output_dir
+from my_package.v4_datepaths import TODAY, VERSION, output_dir, save_output
 from my_package.v4_datepaths import DATE_CHOICE as DATE
-from my_package.v4_dicts import reg_2lignes, reg2dep, dep_name, deps_outlay_fig_synthese
+from my_package.v4_dicts import reg_2lignes, reg2dep, dep_name, deps_outlay_fig_synthese, pops
 
 from my_package.v4_graph_options import graph_options
 
@@ -240,29 +240,37 @@ def fig_type1(d, regions, regions_ordered, fig_id):
                         wspace=0.07, 
                         hspace=0.05)
     
-    fig.suptitle('{fig_id}\n@E_Dmz - Données Santé Publique France ({date})'.format(fig_id = fig_id, date = DATE[1]),
-                 x = 0.03, y = 0.045, ha = 'left',                     
-                     fontdict = {'fontsize': 8,
+    pops_France_str = {'whole': '{:.1f}'.format(int(pops['France']['whole']/ 1_000_000)).replace(',', ' '),
+        'class_younger': '{:.1f}'.format(int(pops['France']['0-29'])/1_000_000).replace(',', ' '),
+        'class_middle' : '{:.1f}'.format(int(pops['France']['30-59'])/ 1_000_000).replace(',', ' '),
+        'class_older': '{:.1f}'.format(int(pops['France']['60+'])/ 1_000_000).replace(',', ' '),
+    }
+    #- https://github.com/E-Dmz/data-Covid - Output/Type1/
+    fig.suptitle('@E_Dmz - Données Santé Publique France ({date})\n\
+{fig_id} - En France : {whole} millions d\'habitants, dont + de 60 ans : {class_older} millions, \
+30 à 59 ans : {class_middle} millions et 0 à 29 ans : {class_younger} millions'
+        .format(fig_id = fig_id, date = DATE[1], **pops_France_str),
+                x = 0.03, y = 0.045, ha = 'left',                     
+                fontdict = {'fontsize': 8,
                                      'fontweight' : 'normal',
                                      'verticalalignment': 'center',
                                      'horizontalalignment': 'left'},
-                     c = 'black', family = 'sans',
+                c = 'black', family = 'sans',
                     )
-    
+    # plt.text(.97, 0.045, 'En France, sur {:,} habitants, + de 60 ans : {:,},\n 30 à 59 : {:,}, 0 à 29: {:,}'.format(pops['France']['whole'], 
+    #                 pops['France']['60+'], pops['France']['30-59'], pops['France']['0-29']), 
+    #                 transform=fig.transFigure, 
+    #                 horizontalalignment='right',
+    #                 fontdict = {'fontsize': 8,
+    #                                  'fontweight' : 'normal',
+    #                                  'verticalalignment': 'center',
+    #                                  'horizontalalignment': 'left'},
+    #                 c = 'black', 
+    #                 family = 'sans',
+    #                 )
+
     dir_PNG = output_dir + 'Type1/'
-    dir_PDF = dir_PNG + 'PDF/'
-    
-    if not os.path.exists(dir_PNG):
-        os.makedirs(dir_PNG)
-    if not os.path.exists(dir_PDF):
-        os.makedirs(dir_PDF)
-
-    fname_PDF = dir_PDF + 'regions-{}.pdf'.format(fig_id)
-    fname_PNG = dir_PNG + 'regions-{}.png'.format(fig_id)
-
-          
-    fig.savefig(fname_PDF, pad_inches = 0)  
-    fig.savefig(fname_PNG, pad_inches = 0)
+    save_output(fig, dir_PNG, fig_id)
 
 def fig_type2(d, column_to_plot, regions_ordered):
 

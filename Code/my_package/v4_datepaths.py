@@ -54,6 +54,28 @@ def retrieve_temp(dataset, extension):
     print(fname)
     return fname
 
+def save_output(fig, dir_PNG, suffix):
+    
+    dir_SVG = dir_PNG + 'SVG/'
+    dir_PDF = dir_PNG + 'PDF/'
+    
+    if not os.path.exists(dir_PNG):
+        os.makedirs(dir_PNG)
+    if not os.path.exists(dir_PDF):
+        os.makedirs(dir_PDF)
+    if not os.path.exists(dir_SVG):
+        os.makedirs(dir_SVG)
+
+
+    fname_PNG = dir_PNG + suffix + '.png'
+    fname_PDF = dir_PDF + suffix + '.pdf'
+    fname_SVG = dir_SVG + suffix + '.svg'
+
+    fig.savefig(fname_PNG, pad_inches = 0)
+    fig.savefig(fname_PDF, pad_inches = 0)  
+    fig.savefig(fname_SVG, pad_inches = 0) 
+
+    return
 
 #### Script
 

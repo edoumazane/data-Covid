@@ -9,7 +9,7 @@
 import pandas as pd
 
 from my_package.v4_datepaths import temp_dir, retrieve_data, retrieve_temp
-from my_package.v4_dicts import dep2reg, class_2_3C, reg_name, reg_3C_pop, classvac_2_3C
+from my_package.v4_dicts import dep2reg, class_2_3C, reg_name, classvac_2_3C, reg_3C_pop, pops
 
 def groupby_sum(d, columns):
     """ d: dataframe
@@ -155,6 +155,42 @@ def hosp_compute(din):
     d['taux décès'] = d.apply(lambda x: x['dc hebdo'] / reg_3C_pop
                                                         [ x['entity'] ]
                                                         [ x['three_class'] ] * 100000, 
+                            axis = "columns")
+    return d
+
+### functions for the hospital department dataset
+
+def hosp_dep_input():
+    dataset = 'donnees-hospitalieres-covid19'
+    data_fname, path_temp = retrieve_data(dataset)
+    print(data_fname)
+    din = pd.read_csv(data_fname, sep = ';', parse_dates = ['jour'], dtype = {'reg': str})
+    return din, path_temp
+
+def hosp_dep_compute(din):
+    
+    d1 = din.copy()
+    d2 = (d1[d1.sexe == 0]
+                .drop(columns =['sexe'])
+                .sort_values(['dep', 'jour'])
+                .reset_index(drop = True)
+                .rename(columns = {'dep': 'entity'})
+    )
+    d2['dc hebdo'] = d2['dc'] - d2.groupby(['entity']).shift(7)['dc']
+
+    d = d2.copy()
+    
+    d['taux hosp'] = d.apply(lambda x: x['hosp'] / pops 
+                                                        [ x['entity'] ]
+                                                        [ 'whole' ] * 100000, 
+                            axis = "columns")
+    d['taux rea'] = d.apply(lambda x: x['rea'] / pops
+                                                        [ x['entity'] ]
+                                                        [ 'whole' ] * 100000, 
+                            axis = "columns")
+    d['taux décès'] = d.apply(lambda x: x['dc hebdo'] / pops
+                                                        [ x['entity'] ]
+                                                        [ 'whole' ] * 100000, 
                             axis = "columns")
     return d
 
