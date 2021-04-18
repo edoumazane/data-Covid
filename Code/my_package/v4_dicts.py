@@ -1022,3 +1022,9 @@ pops = {'01': {'0-29': 233162.0,
   '30-59': 4968295.0,
   '60+': 2517033.0,
   'whole': 12278210.0}}
+
+pops_France_str = {'whole': '{:.1f}'.format(int(pops['France']['whole']/ 1_000_000)).replace(',', ' '),
+        'class_younger': '{:.1f}'.format(int(pops['France']['0-29'])/1_000_000).replace(',', ' '),
+        'class_middle' : '{:.1f}'.format(int(pops['France']['30-59'])/ 1_000_000).replace(',', ' '),
+        'class_older': '{:.1f}'.format(int(pops['France']['60+'])/ 1_000_000).replace(',', ' '),
+    }

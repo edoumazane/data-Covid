@@ -14,7 +14,7 @@ import seaborn as sns
 
 from my_package.v4_datepaths import TODAY, VERSION, output_dir, save_output
 from my_package.v4_datepaths import DATE_CHOICE as DATE
-from my_package.v4_dicts import reg_2lignes, reg2dep, dep_name, deps_outlay_fig_synthese, pops
+from my_package.v4_dicts import reg_2lignes, reg2dep, dep_name, deps_outlay_fig_synthese, pops, pops_France_str
 
 from my_package.v4_graph_options import graph_options
 
@@ -25,7 +25,7 @@ from my_package.v4_graph_options import graph_options
 # try: os.mkdir('../Output/{}-{}-{}/PDF'.format(version, DATE_CHOICE[0], TODAY[0]))
 # except: pass
 
-def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", **kwargs):
+def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", rescale = 1, **kwargs):
     """
     formats the graph
     ax: axes object
@@ -35,8 +35,8 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", **kwargs):
     **kwargs: graph_options
     """
     ax.patch.set_alpha(0)
-    ymin = kwargs['ymin']
-    ymax = kwargs['ymax']
+    ymin = kwargs['ymin'] 
+    ymax = kwargs['ymax'] / rescale
 
     # default settings
     ax.spines['top'].set_visible(False)
@@ -117,7 +117,7 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", **kwargs):
         ax.set_xticklabels(labels)
         plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor") 
 
-def plot_three_curves(ax, d, entity, column_to_plot, **kwargs):
+def plot_three_curves(ax, d, entity, column_to_plot, dalt = 'without', **kwargs):
     """
     """
     main_color = kwargs['main_color']
@@ -130,6 +130,10 @@ def plot_three_curves(ax, d, entity, column_to_plot, **kwargs):
 
     dplot = d.loc[d.entity == entity].loc[d.three_class == '60+']
     ax.plot(dplot.jour, dplot[column_to_plot], c = main_color, linewidth = 3, label = '60 ans et +')
+
+    if isinstance(dalt, pd.DataFrame):
+        dplot = dalt.loc[dalt.entity == entity].loc[dalt.three_class == 'whole']
+        ax.plot(dplot.jour, dplot[column_to_plot], c = main_color, linewidth = 2, linestyle = '-.', label = 'tous âges')
 
 def simple_figure(d, entity, column_to_plot, autoscale = False):
     if autoscale:
@@ -232,20 +236,12 @@ def fig_type1(d, regions, regions_ordered, fig_id):
                     column_to_plot = column_to_plot,
                     regions = regions,
                     )
-    
     fig.subplots_adjust(left=0.035,
                         right=0.965, 
-                        bottom=0.1, 
+                        bottom=0.125, 
                         top=0.95, 
                         wspace=0.07, 
                         hspace=0.05)
-    
-    pops_France_str = {'whole': '{:.1f}'.format(int(pops['France']['whole']/ 1_000_000)).replace(',', ' '),
-        'class_younger': '{:.1f}'.format(int(pops['France']['0-29'])/1_000_000).replace(',', ' '),
-        'class_middle' : '{:.1f}'.format(int(pops['France']['30-59'])/ 1_000_000).replace(',', ' '),
-        'class_older': '{:.1f}'.format(int(pops['France']['60+'])/ 1_000_000).replace(',', ' '),
-    }
-    #- https://github.com/E-Dmz/data-Covid - Output/Type1/
     fig.suptitle('@E_Dmz - Données Santé Publique France ({date})\n\
 {fig_id} - En France : {whole} millions d\'habitants, dont + de 60 ans : {class_older} millions, \
 30 à 59 ans : {class_middle} millions et 0 à 29 ans : {class_younger} millions'
@@ -257,25 +253,13 @@ def fig_type1(d, regions, regions_ordered, fig_id):
                                      'horizontalalignment': 'left'},
                 c = 'black', family = 'sans',
                     )
-    # plt.text(.97, 0.045, 'En France, sur {:,} habitants, + de 60 ans : {:,},\n 30 à 59 : {:,}, 0 à 29: {:,}'.format(pops['France']['whole'], 
-    #                 pops['France']['60+'], pops['France']['30-59'], pops['France']['0-29']), 
-    #                 transform=fig.transFigure, 
-    #                 horizontalalignment='right',
-    #                 fontdict = {'fontsize': 8,
-    #                                  'fontweight' : 'normal',
-    #                                  'verticalalignment': 'center',
-    #                                  'horizontalalignment': 'left'},
-    #                 c = 'black', 
-    #                 family = 'sans',
-    #                 )
-
     dir_PNG = output_dir + 'Type1/'
     save_output(fig, dir_PNG, fig_id)
 
 def fig_type2(d, column_to_plot, regions_ordered):
 
     nrow, ncol = 4, 4
-    fig, axs = plt.subplots(nrow, ncol, figsize = (4*ncol, 13))
+    fig, axs = plt.subplots(nrow, ncol, figsize = (3.5*ncol, 10))
     axs = axs.ravel()
 
     row, col = 0, 0
@@ -284,28 +268,29 @@ def fig_type2(d, column_to_plot, regions_ordered):
     format_graph(ax, x_axis='complete', **graph_options[column_to_plot])
     
     # Légende
-    (ax.legend(bbox_to_anchor=[1.6, .45], 
+    (ax.legend(bbox_to_anchor=[0.5, -.7], 
               loc='center',
               labelspacing=0.5,       
               handlelength=2, 
               handletextpad=0.5,
               frameon=True,
-              fontsize = 14,
-              title = '{}\n'.format(DATE[1]) + graph_options[column_to_plot]['title'],
-              title_fontsize = 16,
+              fontsize = 12,
+              title = graph_options[column_to_plot]['title'],
+              title_fontsize = 12,
               )
         )
     plt.setp(ax.get_legend().get_title(), multialignment='center')
     ax.set_title('France', x = 0.02, y = .95, loc = 'left', 
                  fontsize = 22, c = 'royalblue', fontweight='semibold')
-    ax = axs[1]
+    ax = axs[4]
     ax.set_axis_off() 
 
     for i, region in enumerate(regions_ordered):
-
-        ax = axs[i+2]
-        row = (i+2)//ncol
-        col = (i+2)%ncol
+        if i+1 >= 4:
+            i += 1 ## Skip 1st subplot of 2d row
+        ax = axs[i+1]
+        row = (i+1)//ncol
+        col = (i+1)%ncol
 
         plot_three_curves(ax, d, region, column_to_plot, **graph_options[column_to_plot])
         format_graph(ax, 
@@ -314,40 +299,29 @@ def fig_type2(d, column_to_plot, regions_ordered):
                 **graph_options[column_to_plot])
 
         ax.set_title(region, x = 0.02, y = -0.15, loc = 'left', 
-                     fontsize = 18, c = 'royalblue', fontweight='normal', family = 'sans')
+                     fontsize = 14, c = 'royalblue', fontweight='normal', family = 'sans')
 
-        fig.subplots_adjust(left=0.05,
-                        right=0.95, 
-                        bottom=0.2, 
-                        top=0.9, 
-                        wspace=0.12, 
-                        hspace=0.2)
-    fig.suptitle('@E_Dmz - Données Santé Publique France ({})'.format(DATE[1]), 
-                x = 0.05, y = 0.12, ha = 'left',
-                fontdict = {'fontsize': 12,
-                                'fontweight' : 'normal',
-                                'verticalalignment': 'center',
-                                'horizontalalignment': 'left'},
+        fig.subplots_adjust(left=0.04,
+                        right=0.96, 
+                        bottom=0.09, 
+                        top=0.965, 
+                        wspace=0.07, 
+                        hspace=0.15) #Enough space for title
+    fig.suptitle('@E_Dmz - Données Santé Publique France ({date})'
+        .format(date = DATE[1]),
+                x = 0.03, y = 0.03, ha = 'left',                     
+                fontdict = {'fontsize': 8,
+                                     'fontweight' : 'normal',
+                                     'verticalalignment': 'center',
+                                     'horizontalalignment': 'left'},
                 c = 'black', family = 'sans',
-                )
+                    )
 
     dir_PNG = output_dir + 'Type2/'
-    dir_PDF = dir_PNG + 'PDF/'
-    
-    if not os.path.exists(dir_PNG):
-        os.makedirs(dir_PNG)
-    if not os.path.exists(dir_PDF):
-        os.makedirs(dir_PDF)
+    fig_id = 'fig{extension}'.format(extension = graph_options[column_to_plot]["fname_extension"])
+    save_output(fig, dir_PNG, fig_id) 
 
-    fname_PNG = dir_PNG + 'fig{}.png'.format(
-                            graph_options[column_to_plot]['fname_extension'])
-    fname_PDF = dir_PDF + 'fig{}.pdf'.format(
-                            graph_options[column_to_plot]['fname_extension'])
-
-    fig.savefig(fname_PNG, pad_inches = 0)
-    fig.savefig(fname_PDF, pad_inches = 0)  
-
-def fig_type3(d, region, column_to_plot):
+def fig_type3(d, region, column_to_plot, dalt = None):
     
     deps = reg2dep[region]
     ndeps = len(deps)
@@ -364,22 +338,34 @@ def fig_type3(d, region, column_to_plot):
                    .sort_values(ascending = False)
                    .index
                    .tolist())
+    if isinstance(dalt, pd.DataFrame):
+        last_week = ((dalt.jour > np.datetime64(dt.datetime.fromisoformat(DATE[0]) - dt.timedelta(weeks = 1))) 
+            & (dalt.jour <= np.datetime64(dt.datetime.fromisoformat(DATE[0]))))
+        deps = (dalt[(last_week) 
+                    & (dalt.entity.isin(deps))]
+                   .groupby('entity')[column_to_plot]
+                   .mean()
+                   .sort_values(ascending = False)
+                   .index
+                   .tolist())
 
-
-    fig = plt.figure(constrained_layout=False, figsize = (16, 2 * nrows + 4))
-    gs0 = fig.add_gridspec(2, 1, hspace = 0.2, height_ratios=[1.5*nrows, 3])
+    fig = plt.figure(constrained_layout=False, figsize = (12, 1.7 * nrows + 3))
+    gs0 = fig.add_gridspec(2, 1, hspace = 0.2, height_ratios=[1.7*nrows, 3])
     
     gs00 = gs0[0,0].subgridspec(ncols=ncols, nrows=nrows, wspace = 0.1, hspace = 0.05)
     
-
+    if isinstance(dalt, pd.DataFrame):
+        rescale = 2
+    else:
+        rescale = 1
 
     for i,j in enumerate(deps_outlay_fig_synthese[ndeps]):
         #i number of graph, j number of axe
         ax = fig.add_subplot(gs00[j])
-        plot_three_curves(ax, d, deps[i], column_to_plot, **graph_options[column_to_plot])
+        plot_three_curves(ax, d, deps[i], column_to_plot, dalt = dalt, **graph_options[column_to_plot])
         format_graph(ax, x_axis = 'without', y_labels = ('to_the_left' if j%4 == 0 
                                                             else 'to_the_right' if j%4 == 3 
-                                                            else 'without'), **graph_options[column_to_plot])
+                                                            else 'without'), rescale = rescale, **graph_options[column_to_plot])
         ax.set_title(deps[i], 
                         x = 0.05, y = 0.85, 
                         fontdict = {'fontsize': 26,
@@ -391,23 +377,27 @@ def fig_type3(d, region, column_to_plot):
     ax_leg = fig.add_subplot(gs00[3])
     ax_leg.set_axis_off() 
     (ax_leg.legend(*ax.get_legend_handles_labels(),
-                bbox_to_anchor=[0, 0], 
-                  loc='lower left',
+                bbox_to_anchor=[0.5, 0.25], 
+                  loc='center',
                   labelspacing=0.5,       
                   handlelength=2, 
                   handletextpad=0.5,
                   frameon=True,
                   fontsize = 12,
                   title = graph_options[column_to_plot]['title'],
-                  title_fontsize = 14,
+                  title_fontsize = 12,
                   )
             )
     
-    
+    if isinstance(dalt, pd.DataFrame):
+        daltbis = d
+    else: 
+        daltbis = None
+
     gs10 = gs0[1,0].subgridspec(1, 2, wspace=0.1, hspace=0)
     ax = fig.add_subplot(gs10[0,0])
-    plot_three_curves(ax, d, region, column_to_plot, **graph_options[column_to_plot])
-    format_graph(ax, x_axis = 'complete', y_labels = 'to_the_left', **graph_options[column_to_plot])
+    plot_three_curves(ax, d, region, column_to_plot, dalt = daltbis, **graph_options[column_to_plot])
+    format_graph(ax, x_axis = 'without', y_labels = 'to_the_left', **graph_options[column_to_plot])
     ax.set_title(region, 
                          x = 0.05, y = 0.9, 
                          fontdict = {'fontsize': 26,
@@ -418,7 +408,7 @@ def fig_type3(d, region, column_to_plot):
                         )
 
     ax = fig.add_subplot(gs10[0,1])
-    plot_three_curves(ax, d, 'France', column_to_plot, **graph_options[column_to_plot])
+    plot_three_curves(ax, d, 'France', column_to_plot, dalt = daltbis, **graph_options[column_to_plot])
     format_graph(ax, x_axis = 'complete', y_labels = 'to_the_right', **graph_options[column_to_plot])
     ax.set_title('France', 
                          x = 0.05, y = 0.9, 
@@ -428,25 +418,29 @@ def fig_type3(d, region, column_to_plot):
                                          'horizontalalignment': 'left'},
                          c = 'royalblue', family = 'sans'
                         )
-    
-##
+
+    fig.subplots_adjust(left=0.04,
+                        right=0.96, 
+                        bottom=0.09, 
+                        top=0.965, 
+                        wspace=0.07, 
+                        hspace=0.1) #Enough space for title
+
+    fig.suptitle('@E_Dmz - Données Santé Publique France ({date})'
+        .format(date = DATE[1]),
+                x = 0.03, y = 0.03, ha = 'left',                     
+                fontdict = {'fontsize': 8,
+                                     'fontweight' : 'normal',
+                                     'verticalalignment': 'center',
+                                     'horizontalalignment': 'left'},
+                c = 'black', family = 'sans',
+                    )
+
     dir_PNG = '{output_dir}Type3/{region}/'.format(
         output_dir = output_dir, 
         region = region)
-    dir_PDF = dir_PNG + 'PDF/'
-    
-    if not os.path.exists(dir_PNG):
-        os.makedirs(dir_PNG)
-    if not os.path.exists(dir_PDF):
-        os.makedirs(dir_PDF)
-
-    fname = 'fig-{region}{indicateur}'.format(region = region,
-                            indicateur = graph_options[column_to_plot]['fname_extension'])
-    fname_PNG = dir_PNG + fname + '.png'
-    fname_PDF = dir_PDF + fname + '.pdf'
-
-    fig.savefig(fname_PNG, pad_inches = 0)
-    fig.savefig(fname_PDF, pad_inches = 0) 
+    fig_id = 'fig-{region}{extension}'.format(region = region, extension = graph_options[column_to_plot]["fname_extension"])
+    save_output(fig, dir_PNG, fig_id)
 
     # plt.clf() 
 
