@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
+from matplotlib.ticker import StrMethodFormatter, AutoMinorLocator
+
 from my_package.v4_datepaths import TODAY, VERSION, output_dir, save_output
 from my_package.v4_datepaths import DATE_CHOICE as DATE
 from my_package.v4_dicts import reg_2lignes, reg2dep, dep_name, deps_outlay_fig_synthese, pops, pops_France_str
@@ -35,85 +37,101 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", rescale = 1,
     **kwargs: graph_options
     """
     ax.patch.set_alpha(0)
-    ymin = kwargs['ymin'] 
-    ymax = kwargs['ymax'] / rescale
-
-    # default settings
+    
+    ###
+    # no spines
+    ###
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
     ax.spines['left'].set_visible(False)
     
-    # y axis default
+    ###
+    # yaxis default settings
+    ###
+    ymin = kwargs['ymin'] 
+    ymax = kwargs['ymax'] / rescale
     ax.set_ylim(ymin, ymax)
-    ax.grid(axis = 'y')
-    # y axis conditional
+    ymajloc = [el for el in kwargs['majloc'] if el < ymax]
+    yminloc = [el for el in kwargs['minloc'] if el < ymax]
+    ax.yaxis.set_ticks(ymajloc)
+    ax.yaxis.set_ticks(yminloc, minor = True)
+    ax.yaxis.grid(which = 'major', alpha = 0.5)
+    ax.yaxis.grid(which = 'minor', alpha = 0.2)
+    ax.yaxis.set_tick_params(left = False, which = 'both', labelsize = 9)
+    
+    ###
+    # yaxis conditional settings
+    ###
 
     if y_labels == "without":
-        ax.tick_params(axis='y', left = False, labelsize = 9) 
-        ax.set_yticklabels([])
+        ax.yaxis.set_tick_params(left = False, labelsize = 9)
+        ax.yaxis.set_ticklabels([])
 
     if y_labels == "to_the_left":
-        ax.tick_params(axis='y', left = False, labelsize = 9)
+        ax.yaxis.set_tick_params(left = False, labelsize = 9)
+        ax.yaxis.set_major_formatter(lambda x, pos: '{: <4d}'.format(int(x)))
+        ax.yaxis.set_ticklabels(ymajloc, ha = 'right')
 
     if y_labels == "to_the_right":
-        ax.tick_params(axis='y', left = False,
+        ax.yaxis.set_tick_params(left = False,
             labelright = True, labelleft = False, labelsize = 9)
-        
-    # x axis and vertical lines default
+        ax.yaxis.set_major_formatter(lambda x, pos: '{: >4d}'.format(int(x)))
+        ax.yaxis.set_ticklabels(ymajloc, ha = 'left')
+    
+    ###
+    # xaxis and vertical lines default
+    ###
+
     ax.set_xlim(dt.datetime(2020, 3, 1), 
                     dt.datetime(2021, 6, 1))
     ax.axvline(dt.datetime(2021, 1, 1), 
                     ymin = 0, ymax = .95, 
-                    c = 'black', 
-                    linewidth = 0.5,
-                    linestyle = '--')
+                    c = 'black', linewidth = 0.5, linestyle = '--')
     ax.axvspan(dt.datetime(2020, 3, 17), 
                     dt.datetime(2020, 5, 10),
-                    ymin = 0, ymax = .95,
-                    alpha=0.15, color='gray')
+                    ymin = 0, ymax = .95, alpha=0.15, color='gray')
     ax.axvspan(dt.datetime(2020, 10, 30), 
                     dt.datetime(2020, 12, 15),
-                    ymin = 0, ymax = .95,
-                    alpha=0.15, color='gray')
+                    ymin = 0, ymax = .95, alpha=0.15, color='gray')
     ax.axvspan(dt.datetime(2021, 4, 5), 
                     dt.datetime(2021, 5, 2),
-                    ymin = 0, ymax = .95,
-                    alpha=0.15, color='gray')
-    # x axis conditional
+                    ymin = 0, ymax = .95, alpha=0.15, color='gray')
+    
+    ###
+    # xaxis conditional
+    ###
 
     if x_axis == 'without':
-        ax.tick_params(axis='x', bottom = False)
-        ax.set_xticklabels([])
+        ax.xaxis.set_tick_params(bottom = False)
+        ax.xaxis.set_ticklabels([])
 
     if x_axis == 'regular':
-        ax.tick_params(axis='x', bottom = True,
-                   labelsize = 9)
-        locs = []
+        ax.xaxis.set_tick_params(bottom = True, labelsize = 9)
+        xloc = []
         for i in range(8):
-            locs.append(dt.datetime(2020, 3 + 2*i, 1) if 2 * i <= 9
+            xloc.append(dt.datetime(2020, 3 + 2*i, 1) if 2 * i <= 9
                             else dt.datetime(2021, 2*i - 9, 1)
                        )
         labels = ['mars','mai', 'juil.', 
                  'sept.',  'nov.', 
                  'janv.', 'mars', 
                   'mai']
-        ax.set_xticks(locs)
-        ax.set_xticklabels(labels)
-        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor") 
+        ax.xaxis.set_ticks(xloc)
+        ax.xaxis.set_ticklabels(labels, rotation=45, ha="right", rotation_mode="anchor")
 
     if x_axis == 'complete':
         ax.tick_params(axis='x', bottom = True,
                 labelsize = 9)
-        locs = []
+        xloc = []
         for i in range(16):
-            locs.append(dt.datetime(2020, 3 + i , 1) if i <= 9 
+            xloc.append(dt.datetime(2020, 3 + i , 1) if i <= 9 
                         else dt.datetime(2021, i - 9, 1))
         labels = ['mars','avril', 'mai', 'juin', 'juil.', 
                     'août', 'sept.', 'oct.', 'nov.', 'déc.', 
                      'janv.', 'fév.', 'mars', 'avril', 
                       'mai', 'juin']
-        ax.set_xticks(locs)
+        ax.set_xticks(xloc)
         ax.set_xticklabels(labels)
         plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor") 
 
@@ -133,9 +151,10 @@ def plot_three_curves(ax, d, entity, column_to_plot, dalt = 'without', **kwargs)
 
     if isinstance(dalt, pd.DataFrame):
         dplot = dalt.loc[dalt.entity == entity].loc[dalt.three_class == 'whole']
-        ax.plot(dplot.jour, dplot[column_to_plot], c = main_color, linewidth = 2, linestyle = '-.', label = 'tous âges')
+        ax.plot(dplot.jour, dplot[column_to_plot], c = main_color, linewidth = 2, linestyle = '--', label = 'tous âges')
 
 def simple_figure(d, entity, column_to_plot, autoscale = False):
+    
     if autoscale:
         ymin = d[d.entity == entity][column_to_plot].min()
         ymax = d[d.entity == entity][column_to_plot].max()
@@ -147,56 +166,52 @@ def simple_figure(d, entity, column_to_plot, autoscale = False):
     else:
         format_graph(ax, **kwargs)
     ax.set_title('{}: {}'.format(entity, column_to_plot), 
-                    fontdict = {'fontsize': 22,
-                                     'fontweight' : 'semibold',
-                                     'verticalalignment': 'center',
-                                     'horizontalalignment': 'center'},
-                     c = 'royalblue', family = 'sans')
+                    fontsize = 22, fontweight = 'semibold',
+                    c = 'royalblue', family = 'sans', va = 'center', ha = 'center',)
 
 def figure_line(row, nrow, axs, d, column_to_plot, regions):
     """
     """
-    
     ncol = len(regions) + 2
 
-    #     Première colonne : France et légende
+    ###
+    # Première colonne : France et légende
+    ###
+
     col = 0
     ax = axs[row * ncol + col]
     plot_three_curves(ax, d, "France", column_to_plot, **graph_options[column_to_plot])
     format_graph(ax,
             x_axis = ('regular' if (row == nrow - 1) else 'without'), 
             y_labels = ('to_the_left' if (col == 0) else 'to_the_right' if (col == ncol - 1) else 'without'), 
+            dense = True,
             **graph_options[column_to_plot])
+    #####
     # Légende
-    (ax.legend(bbox_to_anchor=[1.55, .45], 
-              loc='center',
-              labelspacing=0.5,       
-              handlelength=2, 
-              handletextpad=0.5,
-              frameon=True,
-              fontsize = 11,
-              title = graph_options[column_to_plot]['title'],
-              title_fontsize = 10,
+    #
+    ax.legend(bbox_to_anchor=[1.55, .45], loc='center', frameon=True,
+              labelspacing=0.5, handlelength=2, handletextpad=0.5, fontsize = 11,     
+              title = graph_options[column_to_plot]['title'], title_fontsize = 10,
               )
-        )
     plt.setp(ax.get_legend().get_title(), multialignment='center')
 
+    #####
     # Titre première ligne : "France entière"
+    #
     if (row == 0):
         ax.set_title('France', 
-                     x = 0.5, y = 1.05, 
-                     fontdict = {'fontsize': 24,
-                                     'fontweight' : 'semibold',
-                                     'verticalalignment': 'center',
-                                     'horizontalalignment': 'center'},
-                     c = 'royalblue', family = 'sans'
+                    x = 0.5, y = 1.1, fontsize = 24, fontweight = 'semibold',
+                    c = 'royalblue', family = 'sans', va = 'center', ha = 'center',
                     )
-
+    #####
     #     Deuxième colonne vide (pour la légende)
+    #
     ax = axs[row * ncol + 1]
     ax.set_axis_off() 
 
+    #####
     #     Colonnes suivantes
+    #
     for i, region in enumerate(regions):
         col = 2 + i
         ax = axs[row * ncol + col]
@@ -204,22 +219,21 @@ def figure_line(row, nrow, axs, d, column_to_plot, regions):
         format_graph(ax,
                 x_axis = ('regular' if (row == nrow -1 ) else 'without'), 
                 y_labels = ('to_the_left' if (col == 0) else 'to_the_right' if (col == ncol - 1) else 'without'),
+                dense = True,
                 **graph_options[column_to_plot])
-        
-        # Titre première ligne : nom des régions       
+        #####
+        # Titres colonnes suivantes, première ligne : nom des régions       
+        #
         if row == 0:
             ax.set_title(reg_2lignes[region], 
-                         x = 0.5, y = 1.05, 
-                         fontdict = {'fontsize': 16,
-                                     'fontweight' : 'semibold',
-                                     'verticalalignment': 'center',
-                                     'horizontalalignment': 'center'},
-                     c = 'royalblue', family = 'sans')
+                        x = 0.5, y = 1.1, fontsize = 16, fontweight = 'semibold',
+                        c = 'royalblue', family = 'sans', va = 'center', ha = 'center',
+                        )
 
 def fig_type1(d, regions, regions_ordered, fig_id):
 
     ncol = len(regions) + 2
-    fig, axs = plt.subplots(5, ncol, figsize = (2.5 * ncol, 10))
+    fig, axs = plt.subplots(5, ncol, figsize = (2.5 * ncol, 8))
     axs = axs.ravel() 
     
     for i, column_to_plot in enumerate([
@@ -238,28 +252,25 @@ def fig_type1(d, regions, regions_ordered, fig_id):
                     )
     fig.subplots_adjust(left=0.035,
                         right=0.965, 
-                        bottom=0.125, 
-                        top=0.95, 
+                        bottom=0.08, 
+                        top=0.94, 
                         wspace=0.07, 
                         hspace=0.05)
     fig.suptitle('@E_Dmz - Données Santé Publique France ({date})\n\
 {fig_id} - En France : {whole} millions d\'habitants, dont + de 60 ans : {class_older} millions, \
 30 à 59 ans : {class_middle} millions et 0 à 29 ans : {class_younger} millions'
         .format(fig_id = fig_id, date = DATE[1], **pops_France_str),
-                x = 0.03, y = 0.045, ha = 'left',                     
-                fontdict = {'fontsize': 8,
-                                     'fontweight' : 'normal',
-                                     'verticalalignment': 'center',
-                                     'horizontalalignment': 'left'},
-                c = 'black', family = 'sans',
-                    )
+                x = 0.035, y = 0, 
+                fontsize = 8, fontweight = 'normal', c = 'black', family = 'sans',
+                ha = 'left', va = 'center')
+
     dir_PNG = output_dir + 'Type1/'
     save_output(fig, dir_PNG, fig_id)
 
 def fig_type2(d, column_to_plot, regions_ordered):
 
     nrow, ncol = 4, 4
-    fig, axs = plt.subplots(nrow, ncol, figsize = (3.5*ncol, 10))
+    fig, axs = plt.subplots(nrow, ncol, figsize = (3*ncol, 8))
     axs = axs.ravel()
 
     row, col = 0, 0
@@ -267,24 +278,35 @@ def fig_type2(d, column_to_plot, regions_ordered):
     plot_three_curves(ax, d, "France", column_to_plot, **graph_options[column_to_plot])
     format_graph(ax, x_axis='complete', **graph_options[column_to_plot])
     
+    #####
     # Légende
+    #
     (ax.legend(bbox_to_anchor=[0.5, -.7], 
               loc='center',
               labelspacing=0.5,       
               handlelength=2, 
               handletextpad=0.5,
               frameon=True,
-              fontsize = 12,
+              fontsize = 11,
               title = graph_options[column_to_plot]['title'],
-              title_fontsize = 12,
+              title_fontsize = 10,
               )
         )
     plt.setp(ax.get_legend().get_title(), multialignment='center')
+
+
+    #####
+    # Titre France
+    #
     ax.set_title('France', x = 0.02, y = .95, loc = 'left', 
                  fontsize = 22, c = 'royalblue', fontweight='semibold')
     ax = axs[4]
     ax.set_axis_off() 
 
+
+    #####
+    # Régions
+    #
     for i, region in enumerate(regions_ordered):
         if i+1 >= 4:
             i += 1 ## Skip 1st subplot of 2d row
@@ -298,194 +320,153 @@ def fig_type2(d, column_to_plot, regions_ordered):
                 y_labels = ('to_the_left' if (col == 0) else 'to_the_right' if (col == ncol - 1) else 'without'),
                 **graph_options[column_to_plot])
 
+        #####
+        # Titre régions
+        #
         ax.set_title(region, x = 0.02, y = -0.15, loc = 'left', 
-                     fontsize = 14, c = 'royalblue', fontweight='normal', family = 'sans')
+                     fontsize = 13, c = 'royalblue', fontweight='normal', family = 'sans')
 
-        fig.subplots_adjust(left=0.04,
-                        right=0.96, 
-                        bottom=0.09, 
-                        top=0.965, 
+        fig.subplots_adjust(left=0.035,
+                        right=0.965, 
+                        bottom=0.05, 
+                        top=0.95, 
                         wspace=0.07, 
-                        hspace=0.15) #Enough space for title
+                        hspace=0.1) #Enough space for title
+    #####
+    # Note bas de page
+    #
     fig.suptitle('@E_Dmz - Données Santé Publique France ({date})'
         .format(date = DATE[1]),
-                x = 0.03, y = 0.03, ha = 'left',                     
-                fontdict = {'fontsize': 8,
-                                     'fontweight' : 'normal',
-                                     'verticalalignment': 'center',
-                                     'horizontalalignment': 'left'},
-                c = 'black', family = 'sans',
-                    )
+                x = 0.035, y = 0,                   
+                fontsize = 8, fontweight = 'normal', c = 'black', family = 'sans',
+                ha = 'left', va = 'bottom')
 
     dir_PNG = output_dir + 'Type2/'
     fig_id = 'fig{extension}'.format(extension = graph_options[column_to_plot]["fname_extension"])
     save_output(fig, dir_PNG, fig_id) 
 
-def fig_type3(d, region, column_to_plot, dalt = None):
-    
-    deps = reg2dep[region]
-    ndeps = len(deps)
-    nrows = int(np.ceil((ndeps + 2) / 4))
-    ncols = 4 
-    
-    last_week = ((d.jour > np.datetime64(dt.datetime.fromisoformat(DATE[0]) - dt.timedelta(weeks = 1))) 
-             & (d.jour <= np.datetime64(dt.datetime.fromisoformat(DATE[0]))))
-    deps = (d[(last_week) 
-                    & (d.entity.isin(deps))
-                    & (d.three_class == '60+')]
-                   .groupby('entity')[column_to_plot]
-                   .mean()
-                   .sort_values(ascending = False)
-                   .index
-                   .tolist())
-    if isinstance(dalt, pd.DataFrame):
-        last_week = ((dalt.jour > np.datetime64(dt.datetime.fromisoformat(DATE[0]) - dt.timedelta(weeks = 1))) 
-            & (dalt.jour <= np.datetime64(dt.datetime.fromisoformat(DATE[0]))))
-        deps = (dalt[(last_week) 
-                    & (dalt.entity.isin(deps))]
-                   .groupby('entity')[column_to_plot]
-                   .mean()
-                   .sort_values(ascending = False)
-                   .index
-                   .tolist())
+def fig_type3(d, region, column_to_plot, hosp = False, dalt = None):
+        """
+        d dataframe 
+        plots one indicator (column_to_plot) for one region (region) and its component "départements"
+        is from the hospital data, another dataframe (dalt) is substituted for "départements" only
+        """
+    #####
+    # départements correspondant à la région
+    #
+        deps = reg2dep[region] 
 
-    fig = plt.figure(constrained_layout=False, figsize = (12, 1.7 * nrows + 3))
-    gs0 = fig.add_gridspec(2, 1, hspace = 0.2, height_ratios=[1.7*nrows, 3])
-    
-    gs00 = gs0[0,0].subgridspec(ncols=ncols, nrows=nrows, wspace = 0.1, hspace = 0.05)
-    
-    if isinstance(dalt, pd.DataFrame):
-        rescale = 2
-    else:
-        rescale = 1
+    #####
+    # layout
+    #
+        ndeps = len(deps)
+        nrows = int(np.ceil((ndeps + 2) / 4))
+        ncols = 4 
+        fig = plt.figure(constrained_layout=True, figsize = (12, 1.7 * nrows + 3))
+        gs0 = fig.add_gridspec(2, 1, hspace = 0.2, height_ratios=[3, 1.7*nrows]) #haut et bas
+        gs00 = gs0[1,0].subgridspec(ncols=ncols, nrows=nrows, wspace = 0.1, hspace = 0.05) #haut: départements et légende
+        gs10 = gs0[0,0].subgridspec(1, 2, wspace=0.1, hspace=0) #bas: region et France
 
-    for i,j in enumerate(deps_outlay_fig_synthese[ndeps]):
-        #i number of graph, j number of axe
-        ax = fig.add_subplot(gs00[j])
-        plot_three_curves(ax, d, deps[i], column_to_plot, dalt = dalt, **graph_options[column_to_plot])
-        format_graph(ax, x_axis = 'without', y_labels = ('to_the_left' if j%4 == 0 
-                                                            else 'to_the_right' if j%4 == 3 
-                                                            else 'without'), rescale = rescale, **graph_options[column_to_plot])
-        ax.set_title(deps[i], 
-                        x = 0.05, y = 0.85, 
-                        fontdict = {'fontsize': 26,
-                                        'fontweight' : 'semibold',
-                                        'verticalalignment': 'top',
-                                        'horizontalalignment': 'left'},
-                        c = 'royalblue', family = 'sans'
-                    )
-    ax_leg = fig.add_subplot(gs00[3])
-    ax_leg.set_axis_off() 
-    (ax_leg.legend(*ax.get_legend_handles_labels(),
-                bbox_to_anchor=[0.5, 0.25], 
-                  loc='center',
-                  labelspacing=0.5,       
-                  handlelength=2, 
-                  handletextpad=0.5,
-                  frameon=True,
-                  fontsize = 12,
-                  title = graph_options[column_to_plot]['title'],
-                  title_fontsize = 12,
-                  )
-            )
-    
-    if isinstance(dalt, pd.DataFrame):
-        daltbis = d
-    else: 
-        daltbis = None
-
-    gs10 = gs0[1,0].subgridspec(1, 2, wspace=0.1, hspace=0)
-    ax = fig.add_subplot(gs10[0,0])
-    plot_three_curves(ax, d, region, column_to_plot, dalt = daltbis, **graph_options[column_to_plot])
-    format_graph(ax, x_axis = 'without', y_labels = 'to_the_left', **graph_options[column_to_plot])
-    ax.set_title(region, 
-                         x = 0.05, y = 0.9, 
-                         fontdict = {'fontsize': 26,
-                                         'fontweight' : 'semibold',
-                                         'verticalalignment': 'bottom',
-                                         'horizontalalignment': 'left'},
-                         c = 'royalblue', family = 'sans'
+    ########
+    # Note #
+    ########
+        avertissement = '\nDécomposition par classes d\'âge à l\'échelon départemental non disponible' if hosp else '' 
+        
+        fig.suptitle('@E_Dmz - Données Santé Publique France ({date}){avertissement}'
+            .format(date = DATE[1],
+                    avertissement = avertissement),
+                    x = 0.035, y = -.03 -0.015 * (5 - nrows), ha = 'left', va = 'top',                 
+                    c = 'black', family = 'sans', fontsize = 9,
                         )
 
-    ax = fig.add_subplot(gs10[0,1])
-    plot_three_curves(ax, d, 'France', column_to_plot, dalt = daltbis, **graph_options[column_to_plot])
-    format_graph(ax, x_axis = 'complete', y_labels = 'to_the_right', **graph_options[column_to_plot])
-    ax.set_title('France', 
-                         x = 0.05, y = 0.9, 
-                         fontdict = {'fontsize': 24,
-                                         'fontweight' : 'semibold',
-                                         'verticalalignment': 'bottom',
-                                         'horizontalalignment': 'left'},
-                         c = 'royalblue', family = 'sans'
-                        )
+    #####
+    # classement des départements
+    #
+        last_week = ((d.jour > np.datetime64(dt.datetime.fromisoformat(DATE[0]) - dt.timedelta(weeks = 1))) 
+                & (d.jour <= np.datetime64(dt.datetime.fromisoformat(DATE[0]))))
+        deps = (d[(last_week) 
+                        & (d.entity.isin(deps))
+                        & (d.three_class == '60+')]
+                    .groupby('entity')[column_to_plot]
+                    .mean()
+                    .sort_values(ascending = False)
+                    .index
+                    .tolist())
+        if hosp:
+            last_week = ((dalt.jour > np.datetime64(dt.datetime.fromisoformat(DATE[0]) - dt.timedelta(weeks = 1))) 
+                & (dalt.jour <= np.datetime64(dt.datetime.fromisoformat(DATE[0]))))
+            deps = (dalt[(last_week) 
+                        & (dalt.entity.isin(deps))]
+                    .groupby('entity')[column_to_plot]
+                    .mean()
+                    .sort_values(ascending = False)
+                    .index
+                    .tolist())
+    ################
+    # Départements #
+    ################
+        rescale = 2 if hosp else 1
+        for i,j in enumerate(deps_outlay_fig_synthese[ndeps]):
+            
+            #i index of graph, j index of axes
+            ax = fig.add_subplot(gs00[j])
+            plot_three_curves(ax, d, deps[i], column_to_plot, dalt = dalt, **graph_options[column_to_plot])
+            x_axis = 'regular' if (j >= (4*nrows - 4)) else 'without'
+            format_graph(ax, x_axis = x_axis, y_labels = ('to_the_left' if j%4 == 0 
+                                                                else 'to_the_right' if j%4 == 3 
+                                                                else 'without'), rescale = rescale, **graph_options[column_to_plot])
+            ax.set_title(deps[i], 
+                            x = 0.05, y = 0.85, va = 'top', ha = 'left',
+                            fontsize = 24, fontweight = 'semibold', c = 'royalblue', family = 'sans',)
+    ###########
+    # Légende #
+    ###########                   
+        ax_leg = fig.add_subplot(gs00[3])
+        ax_leg.set_axis_off() 
+        ax_leg.legend(*ax.get_legend_handles_labels(),
+                    bbox_to_anchor=[0.5, 0.5], loc='center', frameon=True,
+                    labelspacing=0.5, handlelength=2, handletextpad=0.5, fontsize = 10,
+                    title = graph_options[column_to_plot]['title'], title_fontsize = 11, 
+                )
+        plt.setp(ax_leg.get_legend().get_title(), multialignment='center')
 
-    fig.subplots_adjust(left=0.04,
-                        right=0.96, 
-                        bottom=0.09, 
-                        top=0.965, 
-                        wspace=0.07, 
-                        hspace=0.1) #Enough space for title
 
-    fig.suptitle('@E_Dmz - Données Santé Publique France ({date})'
-        .format(date = DATE[1]),
-                x = 0.03, y = 0.03, ha = 'left',                     
-                fontdict = {'fontsize': 8,
-                                     'fontweight' : 'normal',
-                                     'verticalalignment': 'center',
-                                     'horizontalalignment': 'left'},
-                c = 'black', family = 'sans',
-                    )
+        daltbis = d if hosp else None
+    ##########
+    # Région #
+    ##########
+        ax = fig.add_subplot(gs10[0,0])
+        plot_three_curves(ax, d, region, column_to_plot, dalt = daltbis, **graph_options[column_to_plot])
+        format_graph(ax, x_axis = 'complete', y_labels = 'to_the_left', **graph_options[column_to_plot])
+        ax.set_title(region, 
+                            x = 0, y = 0.95, va = 'bottom', ha = 'left',
+                            fontsize = 26, fontweight = 'semibold', c = 'royalblue', family = 'sans',)
+    ##########
+    # France #
+    ##########
+        ax = fig.add_subplot(gs10[0,1])
+        plot_three_curves(ax, d, 'France', column_to_plot, dalt = daltbis, **graph_options[column_to_plot])
+        format_graph(ax, x_axis = 'complete', y_labels = 'to_the_right', **graph_options[column_to_plot])
+        ax.set_title('France', 
+                            x = 0, y = 0.95, 
+                            fontsize = 22, fontweight = 'semibold',
+                            va = 'bottom', ha = 'left',
+                            c = 'royalblue', family = 'sans'
+                            )
 
-    dir_PNG = '{output_dir}Type3/{region}/'.format(
-        output_dir = output_dir, 
-        region = region)
-    fig_id = 'fig-{region}{extension}'.format(region = region, extension = graph_options[column_to_plot]["fname_extension"])
-    save_output(fig, dir_PNG, fig_id)
+        # fig.subplots_adjust(left=0.04,
+        #                     right=0.96, 
+        #                     bottom=0.09, 
+        #                     top=0.965, 
+        #                     wspace=0.07, 
+        #                     hspace=0.1) #Enough space for title
 
-    # plt.clf() 
 
-# def produce_fig_dep(d, deps):
-#     ncol = max(1, min(4, len(deps)//2))
-#     nrow = math.ceil(len(deps)/ncol)
-#     fig, axs = plt.subplots(nrow, ncol, figsize = (4*ncol,3*nrow))
-#     axs = axs.ravel()
-#     for ax in axs: ax.set_axis_off()
-#     ax.patch.set_alpha(0)
-#     for i, dep in enumerate(deps):
-#         ax = axs[i]
-#         # default settings
-#         ax.patch.set_alpha(0)
-#         ax.spines['top'].set_visible(False)
-#         ax.spines['right'].set_visible(False)
-#         ax.spines['bottom'].set_visible(False)
-#         ax.spines['left'].set_visible(False)
-        
-#         # y axis and grid
-#         ax.set_ylim(-40, 1190)
-#         ax.tick_params(axis='y', left = False, labelsize = 12)
-        
-#         # x axis and vertical lines
-#         ax.set_xlim(dt.datetime(2020, 3, 1), 
-#                     dt.datetime(2021, 6, 1))
-#         ax.axvline(dt.datetime(2021, 1, 1), 
-#                 ymin = 0, ymax = .9, 
-#                 c = 'black', 
-#                 linewidth = 0.5,
-#                 linestyle = '--')
-#         ax.axvspan(dt.datetime(2020, 3, 17), 
-#                 dt.datetime(2020, 5, 10),
-#                 ymin = 0, ymax = .7,
-#                 alpha=0.15, color='gray')
-#         ax.axvspan(dt.datetime(2020, 10, 30), 
-#                 dt.datetime(2020, 12, 15),
-#                 ymin = 0, ymax = .9,
-#                 alpha=0.15, color='gray')
-#         ax.axvspan(dt.datetime(2021, 4, 5), 
-#                 dt.datetime(2021, 5, 2),
-#                 ymin = 0, ymax = .9,
-#                 alpha=0.15, color='gray')
-
-#         plot_three_curves(ax, d, dep, 'incidence hebdo', "darkturquoise")
-#         ax.set_axis_off()
-#         ax.set_title(dep, loc = 'left', y = 0.7, fontsize = 30, fontweight = 'semibold', c = "darkturquoise")
-#         ax.set_title(dep_name[dep], x = -0.05, y = 0, rotation = 90, fontsize = 16)
+    ##############
+    # Save files #
+    ##############
+        dir_PNG = '{output_dir}Type3/{region}/'.format(
+            output_dir = output_dir, 
+            region = region)
+        fig_id = '{region}-{extension}'.format(region = region, extension = graph_options[column_to_plot]["fname_extension"])
+        save_output(fig, dir_PNG, fig_id)

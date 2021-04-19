@@ -71,9 +71,9 @@ def save_output(fig, dir_PNG, suffix):
     fname_PDF = dir_PDF + suffix + '.pdf'
     fname_SVG = dir_SVG + suffix + '.svg'
 
-    fig.savefig(fname_PNG, pad_inches = 0)
-    fig.savefig(fname_PDF, pad_inches = 0)  
-    fig.savefig(fname_SVG, pad_inches = 0) 
+    fig.savefig(fname_PNG, bbox_inches = 'tight', pad_inches = 0.1)
+    fig.savefig(fname_PDF, bbox_inches = 'tight', pad_inches = 0.1)  
+    fig.savefig(fname_SVG, bbox_inches = 'tight', pad_inches = 0.5) 
 
     return
 

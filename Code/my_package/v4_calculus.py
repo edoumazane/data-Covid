@@ -48,6 +48,10 @@ def map_rename(d, col_in, col_out, func):
 ### functions for the coronavirus-tests dataset
 
 def sp_input():
+    """
+    returns din: raw dataframe
+    path_temp: pathway for temporary files
+    """
     dataset = 'sp-pos-quot-dep'
     data_fname, path_temp = retrieve_data(dataset)
     print(data_fname)
