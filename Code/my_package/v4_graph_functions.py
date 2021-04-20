@@ -151,7 +151,7 @@ def plot_three_curves(ax, d, entity, column_to_plot, dalt = 'without', **kwargs)
 
     if isinstance(dalt, pd.DataFrame):
         dplot = dalt.loc[dalt.entity == entity].loc[dalt.three_class == 'whole']
-        ax.plot(dplot.jour, dplot[column_to_plot], c = main_color, linewidth = 2, linestyle = '--', label = 'tous âges')
+        ax.plot(dplot.jour, dplot[column_to_plot], c = main_color, linewidth = 1.5, linestyle = '--', label = 'tous âges')
 
 def simple_figure(d, entity, column_to_plot, autoscale = False):
     
@@ -342,7 +342,7 @@ def fig_type2(d, column_to_plot, regions_ordered):
                 ha = 'left', va = 'bottom')
 
     dir_PNG = output_dir + 'Type2/'
-    fig_id = 'fig{extension}'.format(extension = graph_options[column_to_plot]["fname_extension"])
+    fig_id = 'fig-{extension}'.format(extension = graph_options[column_to_plot]["fname_extension"])
     save_output(fig, dir_PNG, fig_id) 
 
 def fig_type3(d, region, column_to_plot, hosp = False, dalt = None):
@@ -405,7 +405,7 @@ def fig_type3(d, region, column_to_plot, hosp = False, dalt = None):
     ################
     # Départements #
     ################
-        rescale = 2 if hosp else 1
+        rescale =1
         for i,j in enumerate(deps_outlay_fig_synthese[ndeps]):
             
             #i index of graph, j index of axes
