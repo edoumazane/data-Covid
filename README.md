@@ -61,21 +61,18 @@ Objectif - présenter les données épidémiologiques #Covid19France afin de :
 ### 3. Figures type 3 : suivre un indicateur dans une région et ses départements<a name="example3"></a>
 
 * Les données hospitalières à l'échelon départemental ne sont pas disponibles par classe d'âge.
-* :new: pour les données hospitalières, une estimation par classe d'âge est maintenant donnée. _Attention : ce n'est qu'une estimation obtenue à partir du taux départemental en population totale, et des ratios rapports des taux pour les différentes classes d'âge constatés au niveau régional..._
+* :new: pour les données hospitalières, une estimation par classe d'âge est maintenant donnée. _Attention : ce n'est qu'une estimation obtenue à partir du taux départemental en population totale, et des ratios rapports des taux pour les différentes classes d'âge constatés au niveau régional..._ Edit : cette estimation n'est pas satisfaisante (exemple de l'Île-de-France, où les âges sont répartis très différemment selon les départements, ce qui semble aboutir à une extrapolation complètement erronée). Cette estimation (pour taux d'hospitalisation, réanimation et décès) sera donc supprimée prochainement.
 * ![accéder aux 14 * 8 = 112 (!) figures](/Output/Type3)
 * 4 exemples :
 
 >**incidence** en **Île-de-France** :
 >>![Incidence Île-de-France](/Output/Type3/%C3%8Ele-de-France/%C3%8Ele-de-France-incidence.png)
 
->**rénimation** en **Grand Est** :
->>![Réanimation Grand Est](/Output/Type3/Grand%20Est/Grand%20Est-rea.png)
-
 >**positivité** en **Bretagne** :
 >>![Positivité Bretagne](/Output/Type3/Bretagne/Bretagne-positivite.png)
 
 >**vaccination** dans les départements et régions d'**Outre-mer** :
->>![Dose 2 Outre-Mer](/Output/Type3/Outre-mer%20(DROM)/fig-Outre-mer%20(DROM)-dose2.png)
+>>![Dose 2 Outre-Mer](/Output/Type3/Outre-mer%20(DROM)/Outre-mer%20(DROM)-dose2.png)
 
 ### 5. ... et enfin le code source <a name="example4"></a>
 
