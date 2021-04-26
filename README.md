@@ -2,14 +2,14 @@
 
 Ceci est la version v5:construction_worker_man: :
 changements par rapport à v4 (en cours : :construction_worker_man: réalisé : :heavy_check_mark:)
-* :heavy_check_mark:figures Type 3 : les départements sur 3 colonnes, ratio hauteur:largeur proche de celui région / France
-* :heavy_check_mark:retrait de l'extrapolation des données hospitalières à l'échelon départemental
-* :construction_worker_man:prise en compte du nouveau type de fichier VACSI (tot-a-dep)
-* :construction_worker_man:plus facile de changer la définition des classes d'âge visualisées
-* :construction_worker_man:création d'un nouvel indicateur : ratio réa/hosp et décès/hosp
-* :construction_worker_man:création d'un nouveau type de figures (Type 4) permettant de visualiser tous les indicateurs pour une région
+* :heavy_check_mark: figures Type 3 : les départements sur 3 colonnes, ratio hauteur:largeur proche de celui région / France
+* :heavy_check_mark: retrait de l'extrapolation des données hospitalières à l'échelon départemental
+* :construction_worker_man: prise en compte du nouveau type de fichier VACSI (tot-a-dep)
+* :construction_worker_man: plus facile de changer la définition des classes d'âge visualisées
+* :construction_worker_man: création d'un nouvel indicateur : ratio réa/hosp et décès/hosp
+* :construction_worker_man: création d'un nouveau type de figures (Type 4) permettant de visualiser tous les indicateurs pour une région
 * :heavy_check_mark: indication des populations des classes d'âge considérées en bas de page, au national (Type 1 et Type 2) etau niveau régional (Type 4)
-* :construction_worker_man:mise à jour du fichier README et de .gitignore
+* :construction_worker_man: mise à jour du fichier README et de .gitignore
 
 **Objectif - présenter les données épidémiologiques #Covid19France afin :**
 
@@ -87,6 +87,7 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 >>![Dose 2 Outre-Mer](/Output/Type3/Outre-mer%20(DROM)/Outre-mer%20(DROM)-dose2.png)
 
 ### 5. Figures type 4 : suivre tous les indicateurs pour une région<a name="example4"></a>
+:construction_worker_man:
 
 ### 6. ... et enfin le code source <a name="example5"></a>
 
