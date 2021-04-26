@@ -208,7 +208,7 @@ def vac_input():
     return din, path_temp
 
 def vac_tot_3C(din, three_class = True):
-    din = din[~din.dep.isin(['00', '750', '970', '975', '977', '978'])].reset_index(drop = True)
+    din = din[~din.dep.isin(['00', '20', '750', '970', '975', '977', '978'])].reset_index(drop = True)
 
     d_dep = din.rename(columns = {'dep': 'entity'})
 
@@ -235,7 +235,7 @@ def vac_compute(din):
                                                     [ x['entity'] ]
                                                     [ x['three_class'] ] * 100, 
                          axis = "columns")
-    d['taux dose 2'] = d.apply(lambda x: x['n_cum_dose2'] / reg_3C_pop
+    d['taux complet'] = d.apply(lambda x: x['n_cum_complet'] / reg_3C_pop
                                                     [ x['entity'] ]
                                                     [ x['three_class'] ] * 100, 
                         axis = "columns")

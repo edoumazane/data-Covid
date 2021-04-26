@@ -62,13 +62,13 @@ graph_options = {
         'title': 'Personnes vaccinées,\npour 100 habitants\n(première injection)',
         'fname_extension': 'dose1',
         },
-    'taux dose 2': {
+    'taux complet': {
         'ymin': -2,
         'ymax': 70,
         'minloc': [0, 10, 20, 30, 40, 50, 60,],
         'majloc': [0, 20, 40, 60],     
         'main_color': 'gold',
-        'title': 'Personnes vaccinées,\npour 100 habitants\n(deux injections)',
-        'fname_extension': 'dose2',
+        'title': 'Personnes vaccinées,\npour 100 habitants\n(vaccination complète)',
+        'fname_extension': 'vaccin complet',
         },
     }
