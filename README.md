@@ -11,15 +11,15 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 * :heavy_check_mark: indication des populations des classes d'âge considérées en bas de page, au national (Type 1 et Type 2) etau niveau régional (Type 4)
 * :construction_worker_man:mise à jour du fichier README et de .gitignore
 
-Objectif - présenter les données épidémiologiques #Covid19France afin de :
+**Objectif - présenter les données épidémiologiques #Covid19France afin :**
 
-* comparer l'impact sur trois classes d'âge : **0-29**, **30-59** et **+ de 60 ans**
-* comparer les **régions** entre elles
-* couvrir toute la période 01/03/2020 - 01/06/2021
+* de comparer l'impact sur trois classes d'âge : **0-29**, **30-59** et **+ de 60 ans**
+* de comparer les **régions** entre elles
+* de donner un aperçu global sur l'ensemble de la période 01/03/2020 - 01/06/2021
 
 >:clock8: Les figures sont mises à jour toutes les 24 à 48 h
 >>:hatching_chick: C'est mon tout premier projet #dataviz sur GitHub
->>>:tada: Toute participation est la bienvenue
+>>>:tada: Toute remarque ou participation est la bienvenue
 
 >:bulb: Un jour je mettrai des slides expliquant (1) le calcul (2) la disposition des figures
 >>:mag_right: Les figures sur cette page ne sont qu'un aperçu. Cliquez sur "accéder aux n figures" dans chaque catégorie pour naviguer
@@ -28,7 +28,8 @@ Objectif - présenter les données épidémiologiques #Covid19France afin de :
 2. [Quelques infos importantes avant de continuer...](#infos)
 3. [Figures type 2 : comparer les régions pour un indicateur](#example1)
 4. [Figures type 3 : suivre un indicateur dans une région et ses départements](#example3)
-5. [... et enfin le code source](#example4)
+5. [Figures type 4 : suivre tous les indicateurs pour une région](#example4)
+6. [... et enfin le code source](#example5)
 
 ### 1. Figures type 1 : suivre en parallèle 5 indicateurs<a name="example2"></a>
 
@@ -69,7 +70,7 @@ Objectif - présenter les données épidémiologiques #Covid19France afin de :
 > **décès** :
 >>![Figure décès](/Output/Type2/fig-deces.png)
 
-### 3. Figures type 3 : suivre un indicateur dans une région et ses départements<a name="example3"></a>
+### 4. Figures type 3 : suivre un indicateur dans une région et ses départements<a name="example3"></a>
 
 * Les données hospitalières à l'échelon départemental ne sont pas disponibles par classe d'âge.
 * Pour les données hospitalières (hosp, réa, décès), à l'échelon départemental la décomposition par classe d'âge n'est pas fournie par Santé publique France. En conséquence, le taux pour la population totale est représentée par un trait coloré fin. Cette représentation est reprise dans les graphes du haut (région + France). L'échelle des ordonnées est rectifiée pour mieux voir les variations.
@@ -85,7 +86,9 @@ Objectif - présenter les données épidémiologiques #Covid19France afin de :
 >**vaccination** dans les départements et régions d'**Outre-mer** :
 >>![Dose 2 Outre-Mer](/Output/Type3/Outre-mer%20(DROM)/Outre-mer%20(DROM)-dose2.png)
 
-### 5. ... et enfin le code source <a name="example4"></a>
+### 5. Figures type 4 : suivre tous les indicateurs pour une région<a name="example4"></a>
+
+### 6. ... et enfin le code source <a name="example5"></a>
 
 * données brutes :
 ![fichiers téléchargés sur data.gouv.fr (données Santé Publique France)](/Data)
