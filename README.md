@@ -1,15 +1,15 @@
 # data-Covid
 
-Ceci est la version v5 :
+Ceci est la version v5:construction_worker_man: :
 changements par rapport à v4 (en cours : :construction_worker_man: réalisé : :heavy_check_mark:)
-* :heavy_check_mark: figures Type 3 : les départements sur 3 colonnes, ratio hauteur:largeur proche de celui région / France
+* :heavy_check_mark:figures Type 3 : les départements sur 3 colonnes, ratio hauteur:largeur proche de celui région / France
 * :heavy_check_mark:retrait de l'extrapolation des données hospitalières à l'échelon départemental
-* prise en compte du nouveau type de fichier VACSI (tot-a-dep)
-* plus facile de changer la définition des classes d'âge visualisées
-* création d'un nouvel indicateur : ratio réa/hosp et décès/hosp
-* création d'un nouveau type de figures (Type 4) permettant de visualiser tous les indicateurs pour une région
+* :construction_worker_man:prise en compte du nouveau type de fichier VACSI (tot-a-dep)
+* :construction_worker_man:plus facile de changer la définition des classes d'âge visualisées
+* :construction_worker_man:création d'un nouvel indicateur : ratio réa/hosp et décès/hosp
+* :construction_worker_man:création d'un nouveau type de figures (Type 4) permettant de visualiser tous les indicateurs pour une région
 * :heavy_check_mark: indication des populations des classes d'âge considérées en bas de page, au national (Type 1 et Type 2) etau niveau régional (Type 4)
-* mise à jour du fichier README et de .gitignore
+* :construction_worker_man:mise à jour du fichier README et de .gitignore
 
 Objectif - présenter les données épidémiologiques #Covid19France afin de :
 
@@ -72,7 +72,7 @@ Objectif - présenter les données épidémiologiques #Covid19France afin de :
 ### 3. Figures type 3 : suivre un indicateur dans une région et ses départements<a name="example3"></a>
 
 * Les données hospitalières à l'échelon départemental ne sont pas disponibles par classe d'âge.
-* :new: pour les données hospitalières, une estimation par classe d'âge est maintenant donnée. _Attention : ce n'est qu'une estimation obtenue à partir du taux départemental en population totale, et des ratios rapports des taux pour les différentes classes d'âge constatés au niveau régional..._ Edit : cette estimation n'est pas satisfaisante (exemple de l'Île-de-France, où les âges sont répartis très différemment selon les départements, ce qui semble aboutir à une extrapolation complètement erronée). Cette estimation (pour taux d'hospitalisation, réanimation et décès) sera donc supprimée prochainement.
+* Pour les données hospitalières (hosp, réa, décès), à l'échelon départemental la décomposition par classe d'âge n'est pas fournie par Santé publique France. En conséquence, le taux pour la population totale est représentée par un trait coloré fin. Cette représentation est reprise dans les graphes du haut (région + France). L'échelle des ordonnées est rectifiée pour mieux voir les variations.
 * ![accéder aux 14 * 8 = 112 (!) figures](/Output/Type3)
 * 4 exemples :
 
