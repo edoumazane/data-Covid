@@ -61,7 +61,7 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 * ![accéder aux 8 figures](/Output/Type2)
 
 * 3 exemples :
-> **hospitalisation** :
+> **incidence** :
 >>![Figure hosp](/Output/Type2/fig-incidence.png)
 
 > **réanimation** :
