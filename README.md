@@ -1,5 +1,16 @@
 # data-Covid
 
+Ceci est la version v5 :
+changements par rapport à v4 (en cours : :construction_worker_man: réalisé : :heavy_check_mark:)
+* :heavy_check_mark: figures Type 3 : les départements sur 3 colonnes, ratio hauteur:largeur proche de celui région / France
+* :heavy_check_mark:retrait de l'extrapolation des données hospitalières à l'échelon départemental
+* prise en compte du nouveau type de fichier VACSI (tot-a-dep)
+* plus facile de changer la définition des classes d'âge visualisées
+* création d'un nouvel indicateur : ratio réa/hosp et décès/hosp
+* création d'un nouveau type de figures (Type 4) permettant de visualiser tous les indicateurs pour une région
+* :heavy_check_mark: indication des populations des classes d'âge considérées en bas de page, au national (Type 1 et Type 2) etau niveau régional (Type 4)
+* mise à jour du fichier README et de .gitignore
+
 Objectif - présenter les données épidémiologiques #Covid19France afin de :
 
 * comparer l'impact sur trois classes d'âge : **0-29**, **30-59** et **+ de 60 ans**
