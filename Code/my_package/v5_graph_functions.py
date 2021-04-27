@@ -499,12 +499,12 @@ def fig_type4(d, region):
     #####
     # layout
     #
-        nrows = 5
+        nrows = 4
         ncols = 4
         fig = plt.figure(constrained_layout=True, figsize = (12, 8))
-        gs0 = fig.add_gridspec(1, 2, wspace = 1) #gauche et droite
-        gs00 = gs0[0,0].subgridspec(5, 1,  hspace = 0.05, ) 
-        gs01 = gs0[0,1].subgridspec(5, 1,  hspace=0.05) 
+        gs0 = fig.add_gridspec(1, 3, width_ratios = [8, 1, 8]) #gauche et droite
+        gs00 = gs0[0,0].subgridspec(4, 1,  hspace = 0.2, ) 
+        gs01 = gs0[0,2].subgridspec(4, 1,  hspace=0.2) 
 
     ########
     # Note #
@@ -522,10 +522,10 @@ dont + de 60 ans : {class_older} millions, 30 à 59 ans : {class_middle} million
                         )
 
         
-        for i, column_to_plot in enumerate(['taux de tests hebdo', 'incidence hebdo', 'taux de positifs hebdo', 'taux dose 1', 'taux complet']):
+        for i, column_to_plot in enumerate(['taux de tests hebdo', 'incidence hebdo', 'taux de positifs hebdo', 'taux dose 1', ]):
             ax = fig.add_subplot(gs00[i,0])
             plot_three_curves(ax, d, region, column_to_plot, **graph_options[column_to_plot])
-            x_axis = 'regular' if (i == 5) else 'without'
+            x_axis = 'regular' if (i == 3) else 'without'
             format_graph(ax, x_axis = x_axis, y_labels = 'to_the_left', rescale = 1, **graph_options[column_to_plot])
             if i == 0:
                 ax.set_title(region, x = 0.02, y = .95, loc = 'left', 
@@ -533,16 +533,16 @@ dont + de 60 ans : {class_older} millions, 30 à 59 ans : {class_middle} million
             #####
             # Légende
             #
-            ax.legend(bbox_to_anchor=[1.4, .5], loc='center', frameon=True,
+            ax.legend(bbox_to_anchor=[1.1, 0], loc='lower left', frameon=True,
                     labelspacing=0.5, handlelength=2, handletextpad=0.5, fontsize = 11,     
                     title = graph_options[column_to_plot]['title'], title_fontsize = 10,
                     )
             plt.setp(ax.get_legend().get_title(), multialignment='center')
 
-        for i, column_to_plot in enumerate(['taux hosp', 'taux rea', 'taux décès', ]):
+        for i, column_to_plot in enumerate(['taux hosp', 'taux rea', 'taux décès', 'taux complet']):
             ax = fig.add_subplot(gs01[i,0])
             plot_three_curves(ax, d, region, column_to_plot, **graph_options[column_to_plot])
-            x_axis = 'regular' if (i == 5) else 'without'
+            x_axis = 'regular' if (i == 3) else 'without'
             format_graph(ax, x_axis = x_axis, y_labels = 'to_the_left', rescale = 1, **graph_options[column_to_plot])
             if i == 0:
                 ax.set_title(' ', x = 0.02, y = .95, loc = 'left', 
@@ -550,7 +550,7 @@ dont + de 60 ans : {class_older} millions, 30 à 59 ans : {class_middle} million
             #####
             # Légende
             #
-            ax.legend(bbox_to_anchor=[1.4, .5], loc='center', frameon=True,
+            ax.legend(bbox_to_anchor=[1.1, 0], loc='lower left', frameon=True,
                     labelspacing=0.5, handlelength=2, handletextpad=0.5, fontsize = 11,     
                     title = graph_options[column_to_plot]['title'], title_fontsize = 10,
                     )

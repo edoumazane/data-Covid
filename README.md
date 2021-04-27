@@ -4,25 +4,25 @@ Ceci est la version v5:construction_worker_man: :
 changements par rapport à v4 (en cours : :construction_worker_man: réalisé : :heavy_check_mark:)
 * :heavy_check_mark: figures Type 3 : les départements sur 3 colonnes, ratio hauteur:largeur proche de celui région / France
 * :heavy_check_mark: retrait de l'extrapolation des données hospitalières à l'échelon départemental
-* :construction_worker_man: prise en compte du nouveau type de fichier VACSI (tot-a-dep)
 * :construction_worker_man: plus facile de changer la définition des classes d'âge visualisées
 * :construction_worker_man: création d'un nouvel indicateur : ratio réa/hosp et décès/hosp
-* :construction_worker_man: création d'un nouveau type de figures (Type 4) permettant de visualiser tous les indicateurs pour une région
+* :heavy_check_mark: création d'un nouveau type de figures (Type 4) permettant de visualiser tous les indicateurs pour une région
 * :heavy_check_mark: indication des populations des classes d'âge considérées en bas de page, au national (Type 1 et Type 2) etau niveau régional (Type 4)
-* :construction_worker_man: mise à jour du fichier README et de .gitignore
+* :heavy_check_mark: mise à jour du fichier README et de .gitignore
 
 **Objectif - présenter les données épidémiologiques #Covid19France afin :**
 
 * de comparer l'impact sur trois classes d'âge : **0-29**, **30-59** et **+ de 60 ans**
 * de comparer les **régions** entre elles
-* de donner un aperçu global sur l'ensemble de la période 01/03/2020 - 01/06/2021
+* de donner un aperçu **global** sur l'ensemble de la période 01/03/2020 - 01/06/2021
 
 >:clock8: Les figures sont mises à jour toutes les 24 à 48 h
 >>:hatching_chick: C'est mon tout premier projet #dataviz sur GitHub
 >>>:tada: Toute remarque ou participation est la bienvenue
 
 >:bulb: Un jour je mettrai des slides expliquant (1) le calcul (2) la disposition des figures
->>:mag_right: Les figures sur cette page ne sont qu'un aperçu. Cliquez sur "accéder aux n figures" dans chaque catégorie pour naviguer
+>>:mag_right: Les figures sur cette page ne sont qu'un aperçu. Cliquez sur "accéder aux x figures" dans chaque catégorie pour naviguer, ou directement dans le dossier **Output**
+>>>Les figures sont disponibles en PNG mais aussi SVG et PDF, il suffit de naviguer dans les dossiers
 
 1. [Figures type 1 : suivre en parallèle 5 indicateurs](#example2)
 2. [Quelques infos importantes avant de continuer...](#infos)
@@ -88,6 +88,13 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 
 ### 5. Figures type 4 : suivre tous les indicateurs pour une région<a name="example4"></a>
 :construction_worker_man:
+* ![accéder aux 14 figures](/Output/Type4)
+>**Île-de-France** :
+>>![Île-de-France](/Output/Type4/%C3%8Ele-de-France.png)
+>**Grand Est** :
+>>![Grand Est](/Output/Type4/Grand%20Est.png)
+>**Hauts-de-France** :
+>>![Hauts-de-France](/Output/Type4/Hauts-de-France.png)
 
 ### 6. ... et enfin le code source <a name="example5"></a>
 
