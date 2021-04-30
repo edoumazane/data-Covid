@@ -84,7 +84,7 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", rescale = 1,
     ###
 
     ax.set_xlim(dt.datetime(2020, 3, 1), 
-                    dt.datetime(2021, 6, 1))
+                    dt.datetime(2021, 7, 1))
     ax.axvline(dt.datetime(2021, 1, 1), 
                     ymin = 0, ymax = .95, 
                     c = 'black', linewidth = 0.5, linestyle = '--')
@@ -106,17 +106,31 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", rescale = 1,
         ax.xaxis.set_tick_params(bottom = False)
         ax.xaxis.set_ticklabels([])
 
+    # if x_axis == 'regular':
+    #     ax.xaxis.set_tick_params(bottom = True, labelsize = 9)
+    #     xloc = []
+    #     for i in range(9):
+    #         xloc.append(dt.datetime(2020, 3 + 2*i, 1) if 2 * i <= 9
+    #                         else dt.datetime(2021, 2*i - 9, 1)
+    #                    )
+    #     labels = ['mars','mai', 'juil.', 
+    #              'sept.',  'nov.', 
+    #              'janv.', 'mars', 
+    #               'mai', 'juil.']
+    #     ax.xaxis.set_ticks(xloc)
+    #     ax.xaxis.set_ticklabels(labels, rotation=45, ha="right", rotation_mode="anchor")
+
     if x_axis == 'regular':
         ax.xaxis.set_tick_params(bottom = True, labelsize = 9)
         xloc = []
         for i in range(8):
-            xloc.append(dt.datetime(2020, 3 + 2*i, 1) if 2 * i <= 9
-                            else dt.datetime(2021, 2*i - 9, 1)
+            xloc.append(dt.datetime(2020, 4  + 2*i, 1) if 2*i <= 8
+                            else dt.datetime(2021, 2*i - 8, 1)
                        )
-        labels = ['mars','mai', 'juil.', 
-                 'sept.',  'nov.', 
-                 'janv.', 'mars', 
-                  'mai']
+        labels = ['avril', 'juin', 
+                    'août', 'oct.', 'déc.', 
+                    'fév.', 'avril', 
+                      'juin',]
         ax.xaxis.set_ticks(xloc)
         ax.xaxis.set_ticklabels(labels, rotation=45, ha="right", rotation_mode="anchor")
 
@@ -124,21 +138,34 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", rescale = 1,
         ax.tick_params(axis='x', bottom = True,
                 labelsize = 9)
         xloc = []
-        for i in range(16):
+        for i in range(17):
             xloc.append(dt.datetime(2020, 3 + i , 1) if i <= 9 
                         else dt.datetime(2021, i - 9, 1))
         labels = ['mars','avril', 'mai', 'juin', 'juil.', 
-                    'août', 'sept.', 'oct.', 'nov.', 'déc.', 
+                 'août', 'sept.', 'oct.', 'nov.', 'déc.', 
                      'janv.', 'fév.', 'mars', 'avril', 
-                      'mai', 'juin']
+                      'mai', 'juin', 'juil.']
         ax.set_xticks(xloc)
         ax.set_xticklabels(labels)
         plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor") 
 
-def plot_three_curves(ax, d, entity, column_to_plot, whole = 'without', **kwargs):
+def plot_three_curves(ax, d, entity, column_to_plot, whole = 'without', hline = 'with', **kwargs):
     """
     """
     main_color = kwargs['main_color']
+
+    ###
+    # Tracé d'une ligne horizontale
+
+    if hline == 'with':
+        jour = d[d[column_to_plot].notna()].jour.max()
+        y = (d[(d.jour == jour) 
+                    & (d.entity.isin([entity]))
+                    & (d.three_class == '60+')]
+                    [column_to_plot]
+                   .mean())
+        ax.axhline(y, c = main_color, linewidth = 0.5, linestyle = '-')
+
 
     if whole in ['without', 'with']:
         dplot = d.loc[d.entity == entity].loc[d.three_class == '0-29']
@@ -153,6 +180,7 @@ def plot_three_curves(ax, d, entity, column_to_plot, whole = 'without', **kwargs
     if whole in ['with', 'only']:
         dplot = d.loc[d.entity == entity].loc[d.three_class == 'whole']
         ax.plot(dplot.jour, dplot[column_to_plot], c = main_color, linewidth = 1.5, linestyle = '-', label = 'tous âges')
+
 
 def simple_figure(d, entity, column_to_plot, autoscale = False):
     
