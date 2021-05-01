@@ -42,7 +42,7 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 * ![accéder aux 4 figures](/Output/Type1)
 
 >exemple : les 4 régions ayant le plus fort taux d'hospitalisation chez les + de 60 ans (autres régions sont disponibles dans le dossier)
->>![Figure 1 / 3](/Output/Type1/SVG/r%C3%A9gions%201%20sur%203.svg)
+>>![Figure 1 / 3](/Output/Type1/r%C3%A9gions%201%20sur%203.png)
 
 # Quelques infos importantes avant de continuer...<a name="infos"></a>
 
@@ -68,10 +68,10 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 
 * 3 exemples :
 > **incidence** :
->>![Figure hosp](/Output/Type2/SVG/fig-incidence.svg)
+>>![Figure hosp](/Output/Type2/fig-incidence.png)
 
 > **réanimation** :
->>![Figure réa](/Output/Type2/SVG/fig-rea.svg)
+>>![Figure réa](/Output/Type2/fig-rea.png)
 
 > **décès** :
 >>![Figure décès](/Output/Type2/fig-deces.png)
