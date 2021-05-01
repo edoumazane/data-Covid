@@ -8,13 +8,13 @@
 >>:mag_right: Les figures sur cette page ne sont qu'un aperçu. Cliquez sur "accéder aux x figures" dans chaque catégorie pour naviguer, ou directement dans le dossier **Output**
 >>>Les figures sont disponibles en PNG mais aussi SVG et PDF, il suffit de naviguer dans les dossiers
 
-[Introduction](#intro)
-1. [Figures type 1 : suivre en parallèle 5 indicateurs](#example2)
-2. [Quelques infos importantes avant de continuer...](#infos)
-3. [Figures type 2 : comparer les régions pour un indicateur](#example1)
-4. [Figures type 3 : suivre un indicateur dans une région et ses départements](#example3)
-5. [Figures type 4 : suivre tous les indicateurs pour une région](#example4)
-6. [... et enfin le code source](#example5)
+* [Introduction](#intro)
+* [Figures type 1 : suivre en parallèle 5 indicateurs](#example2)
+* [Quelques infos importantes avant de continuer...](#infos)
+* [Figures type 2 : comparer les régions pour un indicateur](#example1)
+* [Figures type 3 : suivre un indicateur dans une région et ses départements](#example3)
+* [Figures type 4 : suivre tous les indicateurs pour une région](#example4)
+* [... et enfin le code source](#example5)
 
 ![Figure 1 / 3](/Output/Type1/r%C3%A9gions%201%20sur%203.png)
 
@@ -37,14 +37,14 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 * :construction_worker_man: dans figures Type 3, passer la **légende** en première colonne + rétablir les 4 labels dans les figures "données hospitalières"
 * :construction_worker_man: une **page web** pour mettre tout ça en forme ? 
 
-# 1. Figures type 1 : suivre en parallèle 5 indicateurs<a name="example2"></a>
+# Figures Type 1 : suivre en parallèle 5 indicateurs<a name="example2"></a>
 
 * ![accéder aux 4 figures](/Output/Type1)
 
 >exemple : les 4 régions ayant le plus fort taux d'hospitalisation chez les + de 60 ans (autres régions sont disponibles dans le dossier)
 >>![Figure 1 / 3](/Output/Type1/r%C3%A9gions%201%20sur%203.png)
 
-# 2. Quelques infos importantes avant de continuer...<a name="info"></a>
+# Quelques infos importantes avant de continuer...<a name="infos"></a>
 
 * _Le choix des couleurs (une par indicateur) met en relief la population + de 60 ans_
 * _Chaque indicateur est rapporté à la population de chaque classe d'âge :_
@@ -62,9 +62,9 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 * _L'échelle du temps est également immuable_
 * _Les zones grisées représentent les 3 périodes de confinement à l'échelle nationale_
 
-# 3. Figures type 2 : comparer les régions pour un indicateur <a name="example1"></a>
+# 3. Figures Type 2 : comparer les régions pour un indicateur <a name="example1"></a>
 
-* ![accéder aux 8 figures](/Output/Type2)
+* ![accéder aux 8 figures Type 2](/Output/Type2)
 
 * 3 exemples :
 > **incidence** :
@@ -76,11 +76,11 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 > **décès** :
 >>![Figure décès](/Output/Type2/fig-deces.png)
 
-# 4. Figures type 3 : suivre un indicateur dans une région et ses départements<a name="example3"></a>
+# Figures Type 3 : suivre un indicateur dans une région et ses départements<a name="example3"></a>
 
 * Les données hospitalières à l'échelon départemental ne sont pas disponibles par classe d'âge.
 * Pour les données hospitalières (hosp, réa, décès), à l'échelon départemental la décomposition par classe d'âge n'est pas fournie par Santé publique France. En conséquence, le taux pour la population totale est représentée par un trait coloré fin. Cette représentation est reprise dans les graphes du haut (région + France). L'échelle des ordonnées est rectifiée pour mieux voir les variations.
-* ![accéder aux 14 * 8 = 112 (!) figures](/Output/Type3)
+* ![accéder aux 14 * 8 = 112 (!) figures Type 3, classées par région](/Output/Type3)
 * 4 exemples :
 
 >**incidence** en **Île-de-France** :
@@ -92,9 +92,9 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 >**vaccination** dans les départements et régions d'**Outre-mer** :
 >>![Dose 2 Outre-Mer](/Output/Type3/Outre-mer%20(DROM)/Outre-mer%20(DROM)-dose2.png)
 
-# 5. Figures type 4 : suivre tous les indicateurs pour une région<a name="example4"></a>
+# Figures Type 4 : suivre tous les indicateurs pour une région<a name="example4"></a>
 :construction_worker_man:
-* ![accéder aux 14 figures](/Output/Type4)
+* ![accéder aux 14 figures Type 4](/Output/Type4)
 >**Île-de-France** :
 >>![Île-de-France](/Output/Type4/%C3%8Ele-de-France.png)
 >**Grand Est** :
@@ -102,7 +102,7 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 >**Hauts-de-France** :
 >>![Hauts-de-France](/Output/Type4/Hauts-de-France.png)
 
-# 6. ... et enfin le code source <a name="example5"></a>
+# ... et enfin le code source <a name="example5"></a>
 
 * données brutes :
 ![fichiers téléchargés sur data.gouv.fr (données Santé Publique France)](/Data)
