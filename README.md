@@ -5,8 +5,8 @@
 >>>:tada: Toute remarque ou participation est la bienvenue (sur Twitter : [@E_Dmz](https://twitter.com/E_Dmz) )
 
 >:bulb: Un jour je mettrai des slides expliquant (1) le calcul (2) la disposition des figures
->>:mag_right: Les figures sur cette page ne sont qu'un aperçu. Cliquez sur "accéder aux x figures" dans chaque catégorie pour naviguer, ou directement dans le dossier **Output**
->>>Les figures sont disponibles en PNG mais aussi SVG et PDF, il suffit de naviguer dans les dossiers
+>>:mag_right: Les figures sur cette page ne sont qu'un aperçu. Il faut aller dans le dossier **Output** pour voir l'ensemble
+>>>Les figures sont disponibles en PNG, SVG et PDF
 
 * [Introduction](#intro)
 * [Figures type 1 : suivre en parallèle 5 indicateurs](#example2)
@@ -16,7 +16,7 @@
 * [Figures type 4 : suivre tous les indicateurs pour une région](#example4)
 * [... et enfin le code source](#example5)
 
-![Figure 1 / 3](/Output/Type1/r%C3%A9gions%201%20sur%203.png)
+![Figure 1 / 3](/Output/Type1/SVG/r%C3%A9gions%201%20sur%203.svg)
 
 # Introduction<a name="intro"></a>
 L'objectif est de **réutiliser les données épidémiologiques** de Santé Publique France pour :**
@@ -42,7 +42,7 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 * ![accéder aux 4 figures](/Output/Type1)
 
 >exemple : les 4 régions ayant le plus fort taux d'hospitalisation chez les + de 60 ans (autres régions sont disponibles dans le dossier)
->>![Figure 1 / 3](/Output/Type1/r%C3%A9gions%201%20sur%203.png)
+>>![Figure 1 / 3](/Output/Type1/SVG/r%C3%A9gions%201%20sur%203.svg)
 
 # Quelques infos importantes avant de continuer...<a name="infos"></a>
 
@@ -68,10 +68,10 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 
 * 3 exemples :
 > **incidence** :
->>![Figure hosp](/Output/Type2/fig-incidence.png)
+>>![Figure hosp](/Output/Type2/SVG/fig-incidence.svg)
 
 > **réanimation** :
->>![Figure réa](/Output/Type2/fig-rea.png)
+>>![Figure réa](/Output/Type2/SVG/fig-rea.svg)
 
 > **décès** :
 >>![Figure décès](/Output/Type2/fig-deces.png)
