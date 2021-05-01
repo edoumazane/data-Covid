@@ -4,7 +4,7 @@ Ceci est la version v5:construction_worker_man: :
 changements par rapport à v4 (en cours : :construction_worker_man: réalisé : :heavy_check_mark:)
 * :heavy_check_mark: figures Type 3 : les départements sur 3 colonnes, ratio hauteur:largeur proche de celui région / France
 * :heavy_check_mark: retrait de l'extrapolation des données hospitalières à l'échelon départemental
-* :construction_worker_man: plus facile de changer la définition des classes d'âge visualisées (c'est du boulot, mais permettrait de visualiser l'évolution selon d'autres catégories d'âges...
+* :construction_worker_man: plus facile de changer la définition des classes d'âge visualisées (c'est du boulot, mais ça permettrait de visualiser l'évolution selon d'autres catégories d'âges...)
 * :construction_worker_man: création d'un nouvel indicateur : ratio réa/hosp et décès/hosp (abandon de cette idée ? risque de poser problème pour les taux se rapprochent de 0...)
 * :heavy_check_mark: création d'un nouveau type de figures (Type 4) permettant de visualiser tous les indicateurs pour une région
 * :heavy_check_mark: indication des populations des classes d'âge considérées en bas de page, au national (Type 1 et Type 2) etau niveau régional (Type 4)
