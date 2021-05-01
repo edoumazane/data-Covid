@@ -164,8 +164,7 @@ def plot_three_curves(ax, d, entity, column_to_plot, whole = 'without', hline = 
                     & (d.three_class == '60+')]
                     [column_to_plot]
                    .mean())
-        ax.axhline(y, c = main_color, linewidth = 0.5, linestyle = '-')
-
+        ax.axhline(y, xmin = dt.datetime(2020, 3, 15), xmax = dt.datetime(2021, 6, 15), c = main_color, linewidth = 1, linestyle = '-')
 
     if whole in ['without', 'with']:
         dplot = d.loc[d.entity == entity].loc[d.three_class == '0-29']
