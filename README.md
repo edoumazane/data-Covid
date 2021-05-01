@@ -1,5 +1,29 @@
 # data-Covid
 
+>:clock8: Les figures sont mises à jour toutes les 24 à 48 h
+>>:hatching_chick: C'est mon tout premier projet #dataviz sur GitHub
+>>>:tada: Toute remarque ou participation est la bienvenue (sur Twitter : [@E_Dmz](https://twitter.com/E_Dmz) )
+
+>:bulb: Un jour je mettrai des slides expliquant (1) le calcul (2) la disposition des figures
+>>:mag_right: Les figures sur cette page ne sont qu'un aperçu. Cliquez sur "accéder aux x figures" dans chaque catégorie pour naviguer, ou directement dans le dossier **Output**
+>>>Les figures sont disponibles en PNG mais aussi SVG et PDF, il suffit de naviguer dans les dossiers
+
+[Une petite introduction](#intro)
+1. [Figures type 1 : suivre en parallèle 5 indicateurs](#example2)
+2. [Quelques infos importantes avant de continuer...](#infos)
+3. [Figures type 2 : comparer les régions pour un indicateur](#example1)
+4. [Figures type 3 : suivre un indicateur dans une région et ses départements](#example3)
+5. [Figures type 4 : suivre tous les indicateurs pour une région](#example4)
+6. [... et enfin le code source](#example5)
+
+![Figure 1 / 3](/Output/Type1/r%C3%A9gions%201%20sur%203.png)
+
+### Une petite introduction<a name="intro"></a>
+L'objectif est de **réutiliser les données épidémiologiques** de Santé Publique France pour :**
+* comparer l'impact sur trois classes d'âge : **0-29**, **30-59** et **+ de 60 ans**
+* comparer les **régions** entre elles
+* donner une **vue d'ensemble** de la période 01/03/2020 - 01/06/2021
+
 Ceci est la **version v5** :construction_worker_man: :
 changements par rapport à v4 (en cours : :construction_worker_man: réalisé : :heavy_check_mark:)
 * :heavy_check_mark: figures Type 3 : les départements sur **3 colonnes**, ratio hauteur:largeur proche de celui région / France
@@ -12,27 +36,6 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 * :heavy_check_mark: ajout d'une **ligne horizontale de couleur** tracée au niveau du dernier chiffre en date pour le groupe 60+
 * :construction_worker_man: dans figures Type 3, passer la **légende** en première colonne + rétablir les 4 labels dans les figures "données hospitalières"
 * :construction_worker_man: une **page web** pour mettre tout ça en forme ? 
-
-**Objectif - présenter les données épidémiologiques #Covid19France afin :**
-
-* de comparer l'impact sur trois classes d'âge : **0-29**, **30-59** et **+ de 60 ans**
-* de comparer les **régions** entre elles
-* de donner un aperçu **global** sur l'ensemble de la période 01/03/2020 - 01/06/2021
-
->:clock8: Les figures sont mises à jour toutes les 24 à 48 h
->>:hatching_chick: C'est mon tout premier projet #dataviz sur GitHub
->>>:tada: Toute remarque ou participation est la bienvenue
-
->:bulb: Un jour je mettrai des slides expliquant (1) le calcul (2) la disposition des figures
->>:mag_right: Les figures sur cette page ne sont qu'un aperçu. Cliquez sur "accéder aux x figures" dans chaque catégorie pour naviguer, ou directement dans le dossier **Output**
->>>Les figures sont disponibles en PNG mais aussi SVG et PDF, il suffit de naviguer dans les dossiers
-
-1. [Figures type 1 : suivre en parallèle 5 indicateurs](#example2)
-2. [Quelques infos importantes avant de continuer...](#infos)
-3. [Figures type 2 : comparer les régions pour un indicateur](#example1)
-4. [Figures type 3 : suivre un indicateur dans une région et ses départements](#example3)
-5. [Figures type 4 : suivre tous les indicateurs pour une région](#example4)
-6. [... et enfin le code source](#example5)
 
 ### 1. Figures type 1 : suivre en parallèle 5 indicateurs<a name="example2"></a>
 
