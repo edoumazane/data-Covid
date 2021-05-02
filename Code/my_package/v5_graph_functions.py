@@ -45,12 +45,13 @@ def format_graph(ax, x_axis = 'complete', y_labels = "to_the_left", rescale = 1,
     ax.spines['right'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
     ax.spines['left'].set_visible(False)
-    
+    ax.axhline(0, c = 'gray', linewidth = 0.8, linestyle = '-')
+
     ###
     # yaxis default settings
     ###
-    ymin = kwargs['ymin'] 
     ymax = kwargs['ymax'] * rescale
+    ymin = - ymax / 20
     ax.set_ylim(ymin, ymax)
     ymajloc = [el for el in kwargs['majloc'] if el < ymax]
     yminloc = [el for el in kwargs['minloc'] if el < ymax]
@@ -164,7 +165,7 @@ def plot_three_curves(ax, d, entity, column_to_plot, whole = 'without', hline = 
                     & (d.three_class == '60+')]
                     [column_to_plot]
                    .mean())
-        ax.axhline(y, c = main_color, linewidth = 0.5, linestyle = '-')
+        ax.axhline(y, c = main_color, linewidth = 0.8, linestyle = '-')
 
 
     if whole in ['without', 'with']:
@@ -181,22 +182,43 @@ def plot_three_curves(ax, d, entity, column_to_plot, whole = 'without', hline = 
         dplot = d.loc[d.entity == entity].loc[d.three_class == 'whole']
         ax.plot(dplot.jour, dplot[column_to_plot], c = main_color, linewidth = 1.5, linestyle = '-', label = 'tous âges')
 
+        if hline == 'with':
+            jour = d[d[column_to_plot].notna()].jour.max()
+            y = (d[(d.jour == jour) 
+                        & (d.entity.isin([entity]))
+                        & (d.three_class == 'whole')]
+                        [column_to_plot]
+                    .mean())
+            ax.axhline(y, c = main_color, linewidth = 0.8, linestyle = '-')
+
 
 def simple_figure(d, entity, column_to_plot, autoscale = False):
     
     if autoscale:
         ymin = d[d.entity == entity][column_to_plot].min()
         ymax = d[d.entity == entity][column_to_plot].max()
-    fig, ax = plt.subplots(1, 1, figsize = (12, 3))
+    fig, ax = plt.subplots(1, 1, figsize = (8, 4))
     kwargs = graph_options[column_to_plot]
 
     plot_three_curves(ax, d, entity, column_to_plot, **kwargs)
     if autoscale: format_graph(ax, ymin, ymax)
     else:
         format_graph(ax, **kwargs)
-    ax.set_title('{}: {}'.format(entity, column_to_plot), 
-                    fontsize = 22, fontweight = 'semibold',
+    ax.set_title('{}'.format(entity), 
+                    fontsize = 18, fontweight = 'semibold',
                     c = 'royalblue', family = 'sans', va = 'center', ha = 'center',)
+    ax.legend(bbox_to_anchor=[1.1, 1.1], loc='upper right', frameon=True,
+              labelspacing=0.5, handlelength=2, handletextpad=0.5, fontsize = 11,     
+              title = graph_options[column_to_plot]['title'], title_fontsize = 10,
+              )
+    plt.setp(ax.get_legend().get_title(), multialignment='center')
+
+    dir_PNG = '{output_dir}Type0/'.format(
+            output_dir = output_dir)
+    fig_id = '{region}-{extension}'.format(region = entity, extension = graph_options[column_to_plot]["fname_extension"])
+    save_output(fig, dir_PNG, fig_id)
+
+
 
 def figure_line(row, nrow, axs, d, column_to_plot, regions):
     """
@@ -455,17 +477,39 @@ dont + de 60 ans : {class_older} millions, 30 à 59 ans : {class_middle} million
             #i index of graph, j index of axes
             ax = fig.add_subplot(gs00[j])
             plot_three_curves(ax, d, deps[i], column_to_plot, whole = whole, **graph_options[column_to_plot])
-            x_axis = 'regular' if (j >= (3*nrows - 3)) else 'without'
+            x_axis = 'regular' if (i>= ndeps-3) else 'without'
             format_graph(ax, x_axis = x_axis, y_labels = ('to_the_left' if j%3 == 0
                                                                 else 'to_the_right' if j%3 == 2 
                                                                 else 'without'), rescale = rescale, **graph_options[column_to_plot])
             ax.set_title(deps[i], 
-                            x = 0.05, y = 0.85, va = 'top', ha = 'left',
+                            x = 0.05, y = 0.75, va = 'center', ha = 'left',
                             fontsize = 24, fontweight = 'semibold', c = 'royalblue', family = 'sans',)
+            ax.set_title(dep_name[deps[i]], loc = 'left',
+                            x = 0.2 if region != 'Outre-mer (DROM)' else 0.27, y = 0.75, va = 'center', ha = 'left',
+                            fontsize = 12, fontweight = 'normal', c = 'royalblue', family = 'sans',)
+            
+
+
+
+    ##########
+    # Région #
+    ##########
+        # rescale = d.loc[(d.entity.isin([region, 'France']))
+        #                 , column_to_plot].max() / graph_options[column_to_plot]['minloc'][-1]
+        
+        whole = 'with' if hosp else 'without'
+        ax = fig.add_subplot(gs10[0,0])
+        plot_three_curves(ax, d, region, column_to_plot, whole = whole, **graph_options[column_to_plot])
+        format_graph(ax, x_axis = 'complete', y_labels = 'to_the_left', rescale = rescale, **graph_options[column_to_plot])
+        ax.set_title(region, 
+                            x = 0, y = 0.95, va = 'bottom', ha = 'left',
+                            fontsize = 26, fontweight = 'semibold', c = 'royalblue', family = 'sans',)
+
+
     ###########
     # Légende #
     ###########                   
-        ax_leg = fig.add_subplot(gs00[2])
+        ax_leg = fig.add_subplot(gs00[0])
         ax_leg.set_axis_off() 
         ax_leg.legend(*ax.get_legend_handles_labels(),
                     bbox_to_anchor=[0.5, 0.5], loc='center', frameon=True,
@@ -473,21 +517,7 @@ dont + de 60 ans : {class_older} millions, 30 à 59 ans : {class_middle} million
                     title = graph_options[column_to_plot]['title'], title_fontsize = 11, 
                 )
         plt.setp(ax_leg.get_legend().get_title(), multialignment='center')
-
-
-    ##########
-    # Région #
-    ##########
-        rescale = d.loc[(d.entity.isin([region, 'France']))
-                        , column_to_plot].max() / graph_options[column_to_plot]['minloc'][-1]
         
-        whole = 'with' if hosp else 'without'
-        ax = fig.add_subplot(gs10[0,0])
-        plot_three_curves(ax, d, region, column_to_plot, whole = whole, **graph_options[column_to_plot])
-        format_graph(ax, x_axis = 'complete', y_labels = 'to_the_left', rescale = rescale,**graph_options[column_to_plot])
-        ax.set_title(region, 
-                            x = 0, y = 0.95, va = 'bottom', ha = 'left',
-                            fontsize = 26, fontweight = 'semibold', c = 'royalblue', family = 'sans',)
     ##########
     # France #
     ##########
