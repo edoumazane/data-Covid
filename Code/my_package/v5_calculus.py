@@ -116,8 +116,14 @@ def hosp_input():
     din = pd.read_csv(data_fname, sep = ';', parse_dates = ['jour'], dtype = {'reg': str})
     return din, path_temp
 
-def hosp_3C(d):
-    d['entity'] = (d['reg']
+def hosp_3C(d, keepDROM = False):
+    if keepDROM:                ## Added this to be able to plot 3 curves hosp in DROMs
+        d['entity'] = (d['reg']
+                .map(lambda x: reg_name[str(x)] )
+                )
+                
+    else:  
+        d['entity'] = (d['reg']
                 .map(lambda x: reg_name[str(x)] )
                 .replace({
                     'Guadeloupe':'Outre-mer (DROM)',
