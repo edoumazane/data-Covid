@@ -16,7 +16,8 @@
 * [Figures type 4 : suivre tous les indicateurs pour une région](#example4)
 * [... et enfin le code source](#example5)
 
-![Figure 1 / 3](/Output/Type1/SVG/r%C3%A9gions%201%20sur%203.svg)
+(Cliquer sur la figure pour agrandir)
+![Figure toutes régions](https://raw.githubusercontent.com/E-Dmz/data-Covid/8c038bb53b8ee21cab30b37ff10edb2496e1206f/Output/Type1/SVG/toutes%20r%C3%A9gions.svg)
 
 # Introduction<a name="intro"></a>
 L'objectif est de **réutiliser les données épidémiologiques** de Santé Publique France pour :**
@@ -43,6 +44,10 @@ changements par rapport à v4 (en cours : :construction_worker_man: réalisé : 
 
 >exemple : les 4 régions ayant le plus fort taux d'hospitalisation chez les + de 60 ans (autres régions sont disponibles dans le dossier)
 >>![Figure 1 / 3](/Output/Type1/r%C3%A9gions%201%20sur%203.png)
+
+>>![Figure 2 / 3](/Output/Type1/r%C3%A9gions%202%20sur%203.png)
+
+>>![Figure 3 / 3](/Output/Type1/r%C3%A9gions%203%20sur%203.png)
 
 # Quelques infos importantes avant de continuer...<a name="infos"></a>
 
